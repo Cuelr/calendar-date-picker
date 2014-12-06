@@ -1,0 +1,24 @@
+{
+  "name": "paper-input",
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer#master",
+    "core-icon": "Polymer/core-icon#master",
+    "core-icons": "Polymer/core-icons#master",
+    "core-input": "Polymer/core-input#master",
+    "core-style": "Polymer/core-style#master"
+  },
+  "devDependencies": {
+    "web-component-tester": "Polymer/web-component-tester#^1.0.0"
+  },
+  "homepage": "https://github.com/Polymer/paper-input",
+  "_release": "1d11698211",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "1d1169821176aa065d6862e2b5a7f8bf26c65442"
+  },
+  "_source": "git://github.com/Polymer/paper-input.git",
+  "_target": "master",
+  "_originalSource": "Polymer/paper-input"
+}
