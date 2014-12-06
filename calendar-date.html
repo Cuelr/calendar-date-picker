@@ -301,7 +301,7 @@
           </div>
         </div>
         <div class="actions" horizontal layout end-justified center>
-          <paper-button class="save_button" on-click="close()">Done</paper-button>
+          <paper-button class="save_button" on-click="{{close}}">Done</paper-button>
         </div>
 
       </div>
@@ -310,7 +310,7 @@
 
   </template>
   <script>
-    Polymer("paper-calendar", {
+    Polymer("calendar-date", {
       publish: {
         // Defines the date-picker layout mode ('vertical' OR 'horizontal')
         orientation: 'vertical',

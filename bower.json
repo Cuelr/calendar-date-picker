@@ -5,6 +5,7 @@
   "dependencies": {
     "polymer": "Polymer/polymer#master",        
     "paper-button": "Polymer/paper-button#master",
+    "paper-input": "Polymer/paper-input#master",
     "paper-shadow": "Polymer/paper-shadow#master",
     "moment": "~2.8.4"
   },
