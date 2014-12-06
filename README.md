@@ -2,7 +2,7 @@ calendar-date-picker
 =========================
 
 The calendar-date-picker is based on Google Material Design specification (http://www.google.com/design/spec/components/pickers.html) and polymer-date-picker of Christophe Clapp (https://github.com/christopheclc/polymer-date-picker).
-f
+
 ## Usage
 ###
 ```html
