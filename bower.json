@@ -1,0 +1,14 @@
+{
+  "name": "calendar-date-picker",
+  "version":"0.1",  
+  "description": "A calendar date picker à la Material Design",
+  "dependencies": {
+    "polymer": "Polymer/polymer#master",        
+    "paper-button": "Polymer/paper-button#master",
+    "paper-shadow": "Polymer/paper-shadow#master",
+    "moment": "~2.8.4"
+  },
+  "devDependencies": {
+    "web-component-tester": "Polymer/web-component-tester#^1.0.0"
+  }
+}
