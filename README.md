@@ -9,6 +9,9 @@ The calendar-date-picker is based on Google Material Design specification (http:
 <calendar-date-picker selectedDate="May 12, 1981" opened="false"></calendar-date-picker>
 ```
 
+## Demo
+http://syncofy.github.io/calendar-date-picker/
+
 ### Options
 * `orientation`: (string)horizontal/vertical.
 * `selectedDate`: (string) The selected date.
