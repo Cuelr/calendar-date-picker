@@ -1,0 +1,25 @@
+
+<link rel="import" href="bower_components/paper-button/paper-button.html"/>
+<link rel="import" href="calendar-date.html"/>
+
+<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
+
+<polymer-element name="calendar-date-picker" attributes="selectedDate opened">
+  <template>
+
+    <calendar-date id="datePicker" orientation="horizontal" selectedDate="{{selectedDate}}" relatedTarget="{{$.trigger}}" opened="{{opened}}"></calendar-date>
+
+    <paper-input id="trigger" value="{{selectedDate}}" on-click="{{toggle}}" readonly></paper-input>
+  </template>
+  <script>
+    Polymer('paper-calendar-picker', {
+      toggle: function() {
+        this.$.datePicker.toggle();
+      },
+      open: function() {
+        this.$.datePicker.open();
+      }
+    });
+
+  </script>
+</polymer-element>
