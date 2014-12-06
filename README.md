@@ -14,3 +14,10 @@ f
 * `selectedDate`: (string) The selected date.
 * `opened`: (boolean) Whether the date picker elements are currently showing.
 
+### Methods
+* `toogle`: Toggle the date picker `opened` attribute.
+* `open` : Open the date picker.
+
+## Contributors
+- Ignacio Manzano (https://github.com/imanzano)
+- Ruben Stösser (https://github.com/shambandito)
