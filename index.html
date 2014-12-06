@@ -1,71 +1,3405 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Calendar-date-picker by Syncofy</title>
+<!DOCTYPE html><html><head>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+    <script src="bower_components/polymer-gestures/src/scope.js"></script>
+<script src="bower_components/polymer-gestures/src/targetfind.js"></script>
+<script src="bower_components/polymer-gestures/src/touch-action.js"></script>
+<script src="bower_components/polymer-gestures/src/eventFactory.js"></script>
+<script src="bower_components/polymer-gestures/src/pointermap.js"></script>
+<script src="bower_components/polymer-gestures/src/dispatcher.js"></script>
+<script src="bower_components/polymer-gestures/src/mouse.js"></script>
+<script src="bower_components/polymer-gestures/src/touch.js"></script>
+<script src="bower_components/polymer-gestures/src/ms.js"></script>
+<script src="bower_components/polymer-gestures/src/pointer.js"></script>
+<script src="bower_components/polymer-gestures/src/platform-events.js"></script>
+<script src="bower_components/polymer-gestures/src/track.js"></script>
+<script src="bower_components/polymer-gestures/src/hold.js"></script>
+<script src="bower_components/polymer-gestures/src/tap.js"></script>
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1>Calendar-date-picker</h1>
-        <p>A calendar date picker à la Material Design</p>
+<script src="bower_components/polymer-expressions/third_party/esprima/esprima.js"></script>
+<script src="bower_components/polymer-expressions/src/polymer-expressions.js"></script>
 
-        <p class="view"><a href="https://github.com/Syncofy/calendar-date-picker">View the Project on GitHub <small>Syncofy/calendar-date-picker</small></a></p>
+<style shim-shadowdom="">
+/*******************************
+          Flex Layout
+*******************************/
+
+html /deep/ [layout][horizontal], html /deep/ [layout][vertical] {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+html /deep/ [layout][horizontal][inline], html /deep/ [layout][vertical][inline] {
+  display: -ms-inline-flexbox;
+  display: -webkit-inline-flex;
+  display: inline-flex;
+}
+
+html /deep/ [layout][horizontal] {
+  -ms-flex-direction: row;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+}
+
+html /deep/ [layout][horizontal][reverse] {
+  -ms-flex-direction: row-reverse;
+  -webkit-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+}
+
+html /deep/ [layout][vertical] {
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+
+html /deep/ [layout][vertical][reverse] {
+  -ms-flex-direction: column-reverse;
+  -webkit-flex-direction: column-reverse;
+  flex-direction: column-reverse;
+}
+
+html /deep/ [layout][wrap] {
+  -ms-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+html /deep/ [layout][wrap-reverse] {
+  -ms-flex-wrap: wrap-reverse;
+  -webkit-flex-wrap: wrap-reverse;
+  flex-wrap: wrap-reverse;
+}
+
+html /deep/ [flex] {
+  -ms-flex: 1 1 0.000000001px;
+  -webkit-flex: 1;
+  flex: 1;
+  -webkit-flex-basis: 0.000000001px;
+  flex-basis: 0.000000001px;
+}
+
+html /deep/ [vertical][layout] > [flex][auto-vertical], html /deep/ [vertical][layout]::shadow [flex][auto-vertical] {
+  -ms-flex: 1 1 auto;
+  -webkit-flex-basis: auto;
+  flex-basis: auto;
+}
+
+html /deep/ [flex][auto] {
+  -ms-flex: 1 1 auto;
+  -webkit-flex-basis: auto;
+  flex-basis: auto;
+}
+
+html /deep/ [flex][none] {
+  -ms-flex: none;
+  -webkit-flex: none;
+  flex: none;
+}
+
+html /deep/ [flex][one] {
+  -ms-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+}
+
+html /deep/ [flex][two] {
+  -ms-flex: 2;
+  -webkit-flex: 2;
+  flex: 2;
+}
+
+html /deep/ [flex][three] {
+  -ms-flex: 3;
+  -webkit-flex: 3;
+  flex: 3;
+}
+
+html /deep/ [flex][four] {
+  -ms-flex: 4;
+  -webkit-flex: 4;
+  flex: 4;
+}
+
+html /deep/ [flex][five] {
+  -ms-flex: 5;
+  -webkit-flex: 5;
+  flex: 5;
+}
+
+html /deep/ [flex][six] {
+  -ms-flex: 6;
+  -webkit-flex: 6;
+  flex: 6;
+}
+
+html /deep/ [flex][seven] {
+  -ms-flex: 7;
+  -webkit-flex: 7;
+  flex: 7;
+}
+
+html /deep/ [flex][eight] {
+  -ms-flex: 8;
+  -webkit-flex: 8;
+  flex: 8;
+}
+
+html /deep/ [flex][nine] {
+  -ms-flex: 9;
+  -webkit-flex: 9;
+  flex: 9;
+}
+
+html /deep/ [flex][ten] {
+  -ms-flex: 10;
+  -webkit-flex: 10;
+  flex: 10;
+}
+
+html /deep/ [flex][eleven] {
+  -ms-flex: 11;
+  -webkit-flex: 11;
+  flex: 11;
+}
+
+html /deep/ [flex][twelve] {
+  -ms-flex: 12;
+  -webkit-flex: 12;
+  flex: 12;
+}
+
+/* alignment in cross axis */
+
+html /deep/ [layout][start] {
+  -ms-flex-align: start;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+}
+
+html /deep/ [layout][center], html /deep/ [layout][center-center] {
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+html /deep/ [layout][end] {
+  -ms-flex-align: end;
+  -webkit-align-items: flex-end;
+  align-items: flex-end;
+}
+
+/* alignment in main axis */
+
+html /deep/ [layout][start-justified] {
+  -ms-flex-pack: start;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+}
+
+html /deep/ [layout][center-justified], html /deep/ [layout][center-center] {
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+html /deep/ [layout][end-justified] {
+  -ms-flex-pack: end;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+}
+
+html /deep/ [layout][around-justified] {
+  -ms-flex-pack: distribute;
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+}
+
+html /deep/ [layout][justified] {
+  -ms-flex-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+/* self alignment */
+
+html /deep/ [self-start] {
+  -ms-align-self: flex-start;
+  -webkit-align-self: flex-start;
+  align-self: flex-start;
+}
+
+html /deep/ [self-center] {
+  -ms-align-self: center;
+  -webkit-align-self: center;
+  align-self: center;
+}
+
+html /deep/ [self-end] {
+  -ms-align-self: flex-end;
+  -webkit-align-self: flex-end;
+  align-self: flex-end;
+}
+
+html /deep/ [self-stretch] {
+  -ms-align-self: stretch;
+  -webkit-align-self: stretch;
+  align-self: stretch;
+}
+
+/*******************************
+          Other Layout
+*******************************/
+
+html /deep/ [block] {
+  display: block;
+}
+
+/* ie support for hidden */
+html /deep/ [hidden] {
+  display: none !important;
+}
+
+html /deep/ [relative] {
+  position: relative;
+}
+
+html /deep/ [fit] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+body[fullbleed] {
+  margin: 0;
+  height: 100vh;
+}
+
+/*******************************
+            Other
+*******************************/
+
+html /deep/ [segment], html /deep/ segment {
+  display: block;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 1em 0.5em;
+  padding: 1em;
+  background-color: white;
+  -webkit-box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 5px 5px 5px 5px;
+}
+
+</style>
+<script src="bower_components/polymer/src/polymer.js"></script>
+<script src="bower_components/polymer/src/boot.js"></script>
+<script src="bower_components/polymer/src/system/module.js"></script>
+
+<!-- Do not load in the presence of webcomponents.js  -->
 
 
-        <ul>
-          <li><a href="https://github.com/Syncofy/calendar-date-picker/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/Syncofy/calendar-date-picker/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/Syncofy/calendar-date-picker">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h3>
-<a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<style shim-shadowdom="">
+  /* FIXME consider theming */
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+  html /deep/ input[is=core-input] {
+    width: 20em;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    outline: none;
+  }
+</style>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
 
-<h3>
-<a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
 
-<h3>
-<a id="rather-drive-stick" class="anchor" href="#rather-drive-stick" aria-hidden="true"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
 
-<h3>
-<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
 
-<h3>
-<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="https://help.github.com/pages">https://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/Syncofy">Syncofy</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="javascripts/scale.fix.js"></script>
+
+<style shim-shadowdom="">/* Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt */
+
+html /deep/ core-icon {
+  display: inline-block;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  fill: currentcolor;
+  position: relative;
+  height: 24px;
+  width: 24px;
+}</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style shim-shadowdom="">/*
+ * @license
+ * Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+ */
+
+html /deep/ paper-shadow,
+html /deep/ paper-animated-shadow {
+  display: block;
+  position: relative;
+}
+
+html /deep/ paper-shadow::shadow #shadow-bottom,
+html /deep/ paper-shadow::shadow #shadow-top {
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+html /deep/ paper-shadow::shadow #shadow-bottom[animated],
+html /deep/ paper-shadow::shadow #shadow-top[animated] {
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html /deep/ .paper-shadow-top-z-1 {
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
+}
+
+html /deep/ .paper-shadow-bottom-z-1 {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+html /deep/ .paper-shadow-top-z-2 {
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+html /deep/ .paper-shadow-bottom-z-2 {
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+}
+
+html /deep/ .paper-shadow-top-z-3 {
+  box-shadow: 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+html /deep/ .paper-shadow-bottom-z-3 {
+  box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
+}
+
+html /deep/ .paper-shadow-top-z-4 {
+  box-shadow: 0 25px 55px 0 rgba(0, 0, 0, 0.21);
+}
+
+html /deep/ .paper-shadow-bottom-z-4 {
+  box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22);
+}
+
+html /deep/ .paper-shadow-top-z-5 {
+  box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.22);
+}
+
+html /deep/ .paper-shadow-bottom-z-5 {
+  box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2);
+}</style>
+
+
+
+
+
+
+
+
+<script src="bower_components/core-focusable/polymer-mixin.js"></script>
+<script src="bower_components/core-focusable/core-focusable.js"></script>
+
+
+
+
+
+
+
+
+
+<script src="bower_components/moment/min/moment.min.js"></script>
+
+<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet" type="text/css">
+
+
+
+<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet" type="text/css">
+
+
+</head>
+<body><div hidden="">
+
+<scripts>
+	<script>
+	(function() {
+		// evacipate all scripts in parent!
+		if (window.WebComponents) {
+			var scripts = document._currentScript.parentNode;
+			scripts.parentNode.removeChild(scripts);
+		}
+	})();
+	</script>
+	<script src="bower_components/polymer/src/system/compat.js"></script>
+	<script src="bower_components/polymer/src/system/HTMLImports/base.js"></script>
+	<script src="bower_components/polymer/src/system/unresolved.js"></script>
+</scripts>
+
+<script src="bower_components/observe-js/src/observe.js"></script>
+<script src="bower_components/NodeBind/src/NodeBind.js"></script>
+<script src="bower_components/TemplateBinding/src/TemplateBinding.js"></script>
+<script src="bower_components/URL/url.js"></script>
+<script src="bower_components/polymer/src/system/microtask.js"></script>
+<script src="bower_components/polymer/src/system/flush.js"></script>
+
+<script src="bower_components/polymer/src/lib/url.js"></script>
+<script src="bower_components/polymer/src/lib/loader.js"></script>
+<script src="bower_components/polymer/src/lib/styleloader.js"></script>
+<script src="bower_components/polymer/src/lib/lang.js"></script>
+<script src="bower_components/polymer/src/lib/job.js"></script>
+<script src="bower_components/polymer/src/lib/dom.js"></script>
+<script src="bower_components/polymer/src/lib/super.js"></script>
+<script src="bower_components/polymer/src/lib/deserialize.js"></script>
+<script src="bower_components/polymer/src/api.js"></script>
+<script src="bower_components/polymer/src/instance/utils.js"></script>
+<script src="bower_components/polymer/src/instance/events.js"></script>
+<script src="bower_components/polymer/src/instance/attributes.js"></script>
+<script src="bower_components/polymer/src/instance/properties.js"></script>
+<script src="bower_components/polymer/src/instance/mdv.js"></script>
+<script src="bower_components/polymer/src/instance/base.js"></script>
+<script src="bower_components/polymer/src/instance/styles.js"></script>
+<script src="bower_components/polymer/src/declaration/polymer.js"></script>
+<script src="bower_components/polymer/src/declaration/path.js"></script>
+<script src="bower_components/polymer/src/declaration/styles.js"></script>
+<script src="bower_components/polymer/src/declaration/events.js"></script>
+<script src="bower_components/polymer/src/declaration/properties.js"></script>
+<script src="bower_components/polymer/src/declaration/attributes.js"></script>
+<script src="bower_components/polymer/src/declaration/mdv.js"></script>
+<script src="bower_components/polymer/src/declaration/prototype.js"></script>
+<script src="bower_components/polymer/src/declaration/queue.js"></script>
+<script src="bower_components/polymer/src/declaration/polymer-element.js"></script>
+<script src="bower_components/polymer/src/lib/import.js"></script>
+<script src="bower_components/polymer/src/lib/auto-binding.js"></script>
+
+<polymer-element name="core-input" extends="input" assetpath="bower_components/core-input/">
+
+<script>
+
+  Polymer('core-input', {
+
+    publish: {
+
+      /**
+       * The "committed" value of the input, ie. the input value when the user
+       * hits the "enter" key or blurs the input after changing the value. You
+       * can bind to this value instead of listening for the "change" event.
+       * Setting this property has no effect on the input value.
+       *
+       * @attribute committedValue
+       * @type string
+       * @default ''
+       */
+      committedValue: '',
+
+      /**
+       * Set to true to prevent invalid input from being entered.
+       *
+       * @attribute preventInvalidInput
+       * @type boolean
+       * @default false
+       */
+      preventInvalidInput: false
+
+    },
+
+    previousValidInput: '',
+
+    eventDelegates: {
+      input: 'inputAction',
+      change: 'changeAction'
+    },
+
+    ready: function() {
+      /* set ARIA attributes */
+      this.disabledHandler();
+      this.placeholderHandler();
+    },
+
+    attributeChanged: function(attr, old) {
+      if (this[attr + 'Handler']) {
+        this[attr + 'Handler'](old);
+      }
+    },
+
+    disabledHandler: function() {
+      if (this.disabled) {
+        this.setAttribute('aria-disabled', '');
+      } else {
+        this.removeAttribute('aria-disabled');
+      }
+    },
+
+    placeholderHandler: function() {
+      if (this.placeholder) {
+        this.setAttribute('aria-label', this.placeholder);
+      } else {
+        this.removeAttribute('aria-label');
+      }
+    },
+
+    /**
+     * Commits the `value` to `committedValue`
+     *
+     * @method commit
+     */
+    commit: function() {
+      this.committedValue = this.value;
+    },
+
+    changeAction: function() {
+      this.commit();
+    },
+
+    inputAction: function(e) {
+      if (this.preventInvalidInput) {
+        if (!e.target.validity.valid) {
+          e.target.value = this.previousValidInput;
+        } else {
+          this.previousValidInput = e.target.value;
+        }
+      }
+    }
+
+  });
+
+</script>
+
+</polymer-element>
+
+<polymer-element name="core-meta" attributes="label type" hidden="" assetpath="bower_components/core-meta/">
+<script>
+
+  (function() {
     
-  </body>
-</html>
+    var SKIP_ID = 'meta';
+    var metaData = {}, metaArray = {};
+
+    Polymer('core-meta', {
+      
+      /**
+       * The type of meta-data.  All meta-data with the same type with be
+       * stored together.
+       * 
+       * @attribute type
+       * @type string
+       * @default 'default'
+       */
+      type: 'default',
+      
+      alwaysPrepare: true,
+      
+      ready: function() {
+        this.register(this.id);
+      },
+      
+      get metaArray() {
+        var t = this.type;
+        if (!metaArray[t]) {
+          metaArray[t] = [];
+        }
+        return metaArray[t];
+      },
+      
+      get metaData() {
+        var t = this.type;
+        if (!metaData[t]) {
+          metaData[t] = {};
+        }
+        return metaData[t];
+      },
+      
+      register: function(id, old) {
+        if (id && id !== SKIP_ID) {
+          this.unregister(this, old);
+          this.metaData[id] = this;
+          this.metaArray.push(this);
+        }
+      },
+      
+      unregister: function(meta, id) {
+        delete this.metaData[id || meta.id];
+        var i = this.metaArray.indexOf(meta);
+        if (i >= 0) {
+          this.metaArray.splice(i, 1);
+        }
+      },
+      
+      /**
+       * Returns a list of all meta-data elements with the same type.
+       * 
+       * @property list
+       * @type array
+       * @default []
+       */
+      get list() {
+        return this.metaArray;
+      },
+      
+      /**
+       * Retrieves meta-data by ID.
+       *
+       * @method byId
+       * @param {String} id The ID of the meta-data to be returned.
+       * @returns Returns meta-data.
+       */
+      byId: function(id) {
+        return this.metaData[id];
+      }
+      
+    });
+    
+  })();
+  
+</script>
+</polymer-element>
+<polymer-element name="core-iconset" extends="core-meta" attributes="src width icons iconSize" assetpath="bower_components/core-iconset/">
+  
+  <script>
+  
+    Polymer('core-iconset', {
+  
+      /**
+       * The URL of the iconset image.
+       *
+       * @attribute src
+       * @type string
+       * @default ''
+       */
+      src: '',
+
+      /**
+       * The width of the iconset image. This must only be specified if the
+       * icons are arranged into separate rows inside the image.
+       *
+       * @attribute width
+       * @type number
+       * @default 0
+       */
+      width: 0,
+
+      /**
+       * A space separated list of names corresponding to icons in the iconset
+       * image file. This list must be ordered the same as the icon images
+       * in the image file.
+       *
+       * @attribute icons
+       * @type string
+       * @default ''
+       */
+      icons: '',
+
+      /**
+       * The size of an individual icon. Note that icons must be square.
+       *
+       * @attribute iconSize
+       * @type number
+       * @default 24
+       */
+      iconSize: 24,
+
+      /**
+       * The horizontal offset of the icon images in the inconset src image.
+       * This is typically used if the image resource contains additional images
+       * beside those intended for the iconset.
+       *
+       * @attribute offsetX
+       * @type number
+       * @default 0
+       */
+      offsetX: 0,
+      /**
+       * The vertical offset of the icon images in the inconset src image.
+       * This is typically used if the image resource contains additional images
+       * beside those intended for the iconset.
+       *
+       * @attribute offsetY
+       * @type number
+       * @default 0
+       */
+      offsetY: 0,
+      type: 'iconset',
+
+      created: function() {
+        this.iconMap = {};
+        this.iconNames = [];
+        this.themes = {};
+      },
+  
+      ready: function() {
+        // TODO(sorvell): ensure iconset's src is always relative to the main
+        // document
+        if (this.src && (this.ownerDocument !== document)) {
+          this.src = this.resolvePath(this.src, this.ownerDocument.baseURI);
+        }
+        this.super();
+        this.updateThemes();
+      },
+
+      iconsChanged: function() {
+        var ox = this.offsetX;
+        var oy = this.offsetY;
+        this.icons && this.icons.split(/\s+/g).forEach(function(name, i) {
+          this.iconNames.push(name);
+          this.iconMap[name] = {
+            offsetX: ox,
+            offsetY: oy
+          }
+          if (ox + this.iconSize < this.width) {
+            ox += this.iconSize;
+          } else {
+            ox = this.offsetX;
+            oy += this.iconSize;
+          }
+        }, this);
+      },
+
+      updateThemes: function() {
+        var ts = this.querySelectorAll('property[theme]');
+        ts && ts.array().forEach(function(t) {
+          this.themes[t.getAttribute('theme')] = {
+            offsetX: parseInt(t.getAttribute('offsetX')) || 0,
+            offsetY: parseInt(t.getAttribute('offsetY')) || 0
+          };
+        }, this);
+      },
+
+      // TODO(ffu): support retrived by index e.g. getOffset(10);
+      /**
+       * Returns an object containing `offsetX` and `offsetY` properties which
+       * specify the pixel locaion in the iconset's src file for the given
+       * `icon` and `theme`. It's uncommon to call this method. It is useful,
+       * for example, to manually position a css backgroundImage to the proper
+       * offset. It's more common to use the `applyIcon` method.
+       *
+       * @method getOffset
+       * @param {String|Number} icon The name of the icon or the index of the
+       * icon within in the icon image.
+       * @param {String} theme The name of the theme.
+       * @returns {Object} An object specifying the offset of the given icon 
+       * within the icon resource file; `offsetX` is the horizontal offset and
+       * `offsetY` is the vertical offset. Both values are in pixel units.
+       */
+      getOffset: function(icon, theme) {
+        var i = this.iconMap[icon];
+        if (!i) {
+          var n = this.iconNames[Number(icon)];
+          i = this.iconMap[n];
+        }
+        var t = this.themes[theme];
+        if (i && t) {
+          return {
+            offsetX: i.offsetX + t.offsetX,
+            offsetY: i.offsetY + t.offsetY
+          }
+        }
+        return i;
+      },
+
+      /**
+       * Applies an icon to the given element as a css background image. This
+       * method does not size the element, and it's often necessary to set 
+       * the element's height and width so that the background image is visible.
+       *
+       * @method applyIcon
+       * @param {Element} element The element to which the background is
+       * applied.
+       * @param {String|Number} icon The name or index of the icon to apply.
+       * @param {Number} scale (optional, defaults to 1) A scaling factor 
+       * with which the icon can be magnified.
+       * @return {Element} The icon element.
+       */
+      applyIcon: function(element, icon, scale) {
+        var offset = this.getOffset(icon);
+        scale = scale || 1;
+        if (element && offset) {
+          var icon = element._icon || document.createElement('div');
+          var style = icon.style;
+          style.backgroundImage = 'url(' + this.src + ')';
+          style.backgroundPosition = (-offset.offsetX * scale + 'px') + 
+             ' ' + (-offset.offsetY * scale + 'px');
+          style.backgroundSize = scale === 1 ? 'auto' :
+             this.width * scale + 'px';
+          if (icon.parentNode !== element) {
+            element.appendChild(icon);
+          }
+          return icon;
+        }
+      }
+
+    });
+
+  </script>
+
+</polymer-element>
+<polymer-element name="core-icon" attributes="src icon alt" assetpath="bower_components/core-icon/">
+<script>
+(function() {
+  
+  // mono-state
+  var meta;
+  
+  Polymer('core-icon', {
+
+    /**
+     * The URL of an image for the icon. If the src property is specified,
+     * the icon property should not be.
+     *
+     * @attribute src
+     * @type string
+     * @default ''
+     */
+    src: '',
+
+    /**
+     * Specifies the icon name or index in the set of icons available in
+     * the icon's icon set. If the icon property is specified,
+     * the src property should not be.
+     *
+     * @attribute icon
+     * @type string
+     * @default ''
+     */
+    icon: '',
+
+    /**
+     * Alternative text content for accessibility support.
+     * If alt is present and not empty, it will set the element's role to img and add an aria-label whose content matches alt.
+     * If alt is present and is an empty string, '', it will hide the element from the accessibility layer
+     * If alt is not present, it will set the element's role to img and the element will fallback to using the icon attribute for its aria-label.
+     * 
+     * @attribute alt
+     * @type string
+     * @default ''
+     */
+    alt: null,
+
+    observe: {
+      'icon': 'updateIcon',
+      'alt': 'updateAlt'
+    },
+
+    defaultIconset: 'icons',
+
+    ready: function() {
+      if (!meta) {
+        meta = document.createElement('core-iconset');
+      }
+
+      // Allow user-provided `aria-label` in preference to any other text alternative.
+      if (this.hasAttribute('aria-label')) {
+        // Set `role` if it has not been overridden.
+        if (!this.hasAttribute('role')) {
+          this.setAttribute('role', 'img');
+        }
+        return;
+      }
+      this.updateAlt();
+    },
+
+    srcChanged: function() {
+      var icon = this._icon || document.createElement('div');
+      icon.textContent = '';
+      icon.setAttribute('fit', '');
+      icon.style.backgroundImage = 'url(' + this.src + ')';
+      icon.style.backgroundPosition = 'center';
+      icon.style.backgroundSize = '100%';
+      if (!icon.parentNode) {
+        this.appendChild(icon);
+      }
+      this._icon = icon;
+    },
+
+    getIconset: function(name) {
+      return meta.byId(name || this.defaultIconset);
+    },
+
+    updateIcon: function(oldVal, newVal) {
+      if (!this.icon) {
+        this.updateAlt();
+        return;
+      }
+      var parts = String(this.icon).split(':');
+      var icon = parts.pop();
+      if (icon) {
+        var set = this.getIconset(parts.pop());
+        if (set) {
+          this._icon = set.applyIcon(this, icon);
+          if (this._icon) {
+            this._icon.setAttribute('fit', '');
+          }
+        }
+      }
+      // Check to see if we're using the old icon's name for our a11y fallback
+      if (oldVal) {
+        if (oldVal.split(':').pop() == this.getAttribute('aria-label')) {
+          this.updateAlt();
+        }
+      }
+    },
+
+    updateAlt: function() {
+      // Respect the user's decision to remove this element from
+      // the a11y tree
+      if (this.getAttribute('aria-hidden')) {
+        return;
+      }
+
+      // Remove element from a11y tree if `alt` is empty, otherwise
+      // use `alt` as `aria-label`.
+      if (this.alt === '') {
+        this.setAttribute('aria-hidden', 'true');
+        if (this.hasAttribute('role')) {
+          this.removeAttribute('role');
+        }
+        if (this.hasAttribute('aria-label')) {
+          this.removeAttribute('aria-label');
+        }
+      } else {
+        this.setAttribute('aria-label', this.alt ||
+                                        this.icon.split(':').pop());
+        if (!this.hasAttribute('role')) {
+          this.setAttribute('role', 'img');
+        }
+        if (this.hasAttribute('aria-hidden')) {
+          this.removeAttribute('aria-hidden');
+        }
+      }
+    }
+
+  });
+  
+})();
+</script>
+
+</polymer-element>
+
+<polymer-element name="core-iconset-svg" extends="core-meta" attributes="iconSize" assetpath="bower_components/core-iconset-svg/">
+
+  <script>
+
+    Polymer('core-iconset-svg', {
+
+
+      /**
+       * The size of an individual icon. Note that icons must be square.
+       *
+       * @attribute iconSize
+       * @type number
+       * @default 24
+       */
+      iconSize: 24,
+      type: 'iconset',
+
+      created: function() {
+        this._icons = {};
+      },
+
+      ready: function() {
+        this.super();
+        this.updateIcons();
+      },
+
+      iconById: function(id) {
+        return this._icons[id] || (this._icons[id] = this.querySelector('[id="' + id +'"]'));
+      },
+
+      cloneIcon: function(id) {
+        var icon = this.iconById(id);
+        if (icon) {
+          var content = icon.cloneNode(true);
+          content.removeAttribute('id');
+          var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+          svg.setAttribute('viewBox', '0 0 ' + this.iconSize + ' ' +
+              this.iconSize);
+          // NOTE(dfreedm): work around https://crbug.com/370136
+          svg.style.pointerEvents = 'none';
+          svg.appendChild(content);
+          return svg;
+        }
+      },
+
+      get iconNames() {
+        if (!this._iconNames) {
+          this._iconNames = this.findIconNames();
+        }
+        return this._iconNames;
+      },
+
+      findIconNames: function() {
+        var icons = this.querySelectorAll('[id]').array();
+        if (icons.length) {
+          return icons.map(function(n){ return n.id });
+        }
+      },
+
+      /**
+       * Applies an icon to the given element. The svg icon is added to the
+       * element's shadowRoot if one exists or directly to itself.
+       *
+       * @method applyIcon
+       * @param {Element} element The element to which the icon is
+       * applied.
+       * @param {String|Number} icon The name the icon to apply.
+       * @return {Element} The icon element
+       */
+      applyIcon: function(element, icon) {
+        var root = element;
+        // remove old
+        var old = root.querySelector('svg');
+        if (old) {
+          old.remove();
+        }
+        // install new
+        var svg = this.cloneIcon(icon);
+        if (!svg) {
+          return;
+        }
+        svg.setAttribute('height', '100%');
+        svg.setAttribute('width', '100%');
+        svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+        svg.style.display = 'block';
+        root.insertBefore(svg, root.firstElementChild);
+        return svg;
+      },
+      
+      /**
+       * Tell users of the iconset, that the set has loaded.
+       * This finds all elements matching the selector argument and calls 
+       * the method argument on them.
+       * @method updateIcons
+       * @param selector {string} css selector to identify iconset users, 
+       * defaults to '[icon]'
+       * @param method {string} method to call on found elements, 
+       * defaults to 'updateIcon'
+       */
+      updateIcons: function(selector, method) {
+        selector = selector || '[icon]';
+        method = method || 'updateIcon';
+        var deep = window.ShadowDOMPolyfill ? '' : 'html /deep/ ';
+        var i$ = document.querySelectorAll(deep + selector);
+        for (var i=0, e; e=i$[i]; i++) {
+          if (e[method]) {
+            e[method].call(e);
+          }
+        }
+      }
+      
+
+    });
+
+  </script>
+
+</polymer-element>
+<core-iconset-svg id="icons" iconsize="24">
+<svg><defs>
+<g id="accessibility"><path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6h-2v-13h-6v-2h18v2z"></path></g>
+<g id="account-balance"><path d="M4 10v7h3v-7h-3zm6 0v7h3v-7h-3zm-8 12h19v-3h-19v3zm14-12v7h3v-7h-3zm-4.5-9l-9.5 5v2h19v-2l-9.5-5z"></path></g>
+<g id="account-balance-wallet"><path d="M21 18v1c0 1.1-.9 2-2 2h-14c-1.11 0-2-.9-2-2v-14c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10v-8h-10v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"></path></g>
+<g id="account-box"><path d="M3 5v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2h-14c-1.11 0-2 .9-2 2zm12 4c0 1.66-1.34 3-3 3s-3-1.34-3-3 1.34-3 3-3 3 1.34 3 3zm-9 8c0-2 4-3.1 6-3.1s6 1.1 6 3.1v1h-12v-1z"></path></g>
+<g id="account-child"><path d="M16.5 12c1.38 0 2.49-1.12 2.49-2.5s-1.11-2.5-2.49-2.5c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5zm-7.5-1c1.66 0 2.99-1.34 2.99-3s-1.33-3-2.99-3c-1.66 0-3 1.34-3 3s1.34 3 3 3zm7.5 3c-1.83 0-5.5.92-5.5 2.75v2.25h11v-2.25c0-1.83-3.67-2.75-5.5-2.75zm-7.5-1c-2.33 0-7 1.17-7 3.5v2.5h7v-2.25c0-.85.33-2.34 2.37-3.47-.87-.18-1.71-.28-2.37-.28z"></path></g>
+<g id="account-circle"><path d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"></path></g>
+<g id="add-box"><path d="M19 3h-14c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4h-4v-2h4v-4h2v4h4v2z"></path></g>
+<g id="add-circle-outline"><path d="M13 7h-2v4h-4v2h4v4h2v-4h4v-2h-4v-4zm-1-5c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></g>
+<g id="add-circle"><path d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm5 11h-4v4h-2v-4h-4v-2h4v-4h2v4h4v2z"></path></g>
+<g id="add"><path d="M19 13h-6v6h-2v-6h-6v-2h6v-6h2v6h6v2z"></path></g>
+<g id="add-shopping-cart"><path d="M11 9h2v-3h3v-2h-3v-3h-2v3h-3v2h3v3zm-4 9c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zm-9.83-3.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01-1.74-.96h-.01l-1.1 2-2.76 5h-7.02l-.13-.27-2.24-4.73-.95-2-.94-2h-3.27v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2h-11.58c-.13 0-.25-.11-.25-.25z"></path></g>
+<g id="alarm-add"><path d="M7.88 3.39l-1.28-1.53-4.6 3.85 1.29 1.53 4.59-3.85zm14.12 2.33l-4.6-3.86-1.29 1.53 4.6 3.86 1.29-1.53zm-10-1.72c-4.97 0-9 4.03-9 9s4.02 9 9 9c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 16c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7zm1-11h-2v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></g>
+<g id="alarm-off"><path d="M12 6c3.87 0 7 3.13 7 7 0 .84-.16 1.65-.43 2.4l1.52 1.52c.58-1.19.91-2.51.91-3.92 0-4.97-4.03-9-9-9-1.41 0-2.73.33-3.92.91l1.52 1.52c.75-.27 1.56-.43 2.4-.43zm10-.28l-4.6-3.86-1.29 1.53 4.6 3.86 1.29-1.53zm-19.08-3.43l-1.27 1.28 1.33 1.33-1.11.93 1.42 1.42 1.11-.94.8.8c-1.37 1.58-2.2 3.64-2.2 5.89 0 4.97 4.02 9 9 9 2.25 0 4.31-.83 5.89-2.2l2.2 2.2 1.27-1.27-17.47-17.46-.97-.98zm13.55 16.1c-1.21 1-2.77 1.61-4.47 1.61-3.87 0-7-3.13-7-7 0-1.7.61-3.26 1.61-4.47l9.86 9.86zm-8.45-15.11l-1.42-1.42-.86.71 1.42 1.42.86-.71z"></path></g>
+<g id="alarm-on"><path d="M22 5.72l-4.6-3.86-1.29 1.53 4.6 3.86 1.29-1.53zm-14.12-2.33l-1.28-1.53-4.6 3.85 1.29 1.53 4.59-3.85zm4.12.61c-4.97 0-9 4.03-9 9s4.02 9 9 9c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 16c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7zm-1.46-5.47l-2.13-2.13-1.06 1.06 3.18 3.18 6-6-1.06-1.06-4.93 4.95z"></path></g>
+<g id="alarm"><path d="M22 5.72l-4.6-3.86-1.29 1.53 4.6 3.86 1.29-1.53zm-14.12-2.33l-1.28-1.53-4.6 3.85 1.29 1.53 4.59-3.85zm4.62 4.61h-1.5v6l4.75 2.85.75-1.23-4-2.37v-5.25zm-.5-4c-4.97 0-9 4.03-9 9s4.02 9 9 9c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 16c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"></path></g>
+<g id="android"><path d="M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-3.5h2v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-3.5h1c.55 0 1-.45 1-1v-10h-12v10zm-2.5-10c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zm17 0c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zm-4.97-5.84l1.3-1.3c.2-.2.2-.51 0-.71-.2-.2-.51-.2-.71 0l-1.48 1.48c-.79-.4-1.69-.63-2.64-.63-.96 0-1.86.23-2.66.63l-1.49-1.48c-.2-.2-.51-.2-.71 0-.2.2-.2.51 0 .71l1.31 1.31c-1.48 1.09-2.45 2.84-2.45 4.83h12c0-1.99-.97-3.75-2.47-4.84zm-5.53 2.84h-1v-1h1v1zm5 0h-1v-1h1v1z"></path></g>
+<g id="announcement"><path d="M20 2h-16c-1.1 0-1.99.9-1.99 2l-.01 18 4-4h14c1.1 0 2-.9 2-2v-12c0-1.1-.9-2-2-2zm-7 9h-2v-6h2v6zm0 4h-2v-2h2v2z"></path></g>
+<g id="apps"><path d="M4 8h4v-4h-4v4zm6 12h4v-4h-4v4zm-6 0h4v-4h-4v4zm0-6h4v-4h-4v4zm6 0h4v-4h-4v4zm6-10v4h4v-4h-4zm-6 4h4v-4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"></path></g>
+<g id="archive"><path d="M20.54 5.23l-1.39-1.68c-.27-.34-.68-.55-1.15-.55h-12c-.47 0-.88.21-1.16.55l-1.38 1.68c-.29.34-.46.79-.46 1.27v12.5c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-12.5c0-.48-.17-.93-.46-1.27zm-8.54 12.27l-5.5-5.5h3.5v-2h4v2h3.5l-5.5 5.5zm-6.88-12.5l.81-1h12l.94 1h-13.75z"></path></g>
+<g id="arrow-back"><path d="M20 11h-12.17l5.59-5.59-1.42-1.41-8 8 8 8 1.41-1.41-5.58-5.59h12.17v-2z"></path></g>
+<g id="arrow-drop-down-circle"><path d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm0 12l-4-4h8l-4 4z"></path></g>
+<g id="arrow-drop-down"><path d="M7 10l5 5 5-5z"></path></g>
+<g id="arrow-drop-up"><path d="M7 14l5-5 5 5z"></path></g>
+<g id="arrow-forward"><path d="M12 4l-1.41 1.41 5.58 5.59h-12.17v2h12.17l-5.58 5.59 1.41 1.41 8-8z"></path></g>
+<g id="aspect-ratio"><path d="M19 12h-2v3h-3v2h5v-5zm-12-3h3v-2h-5v5h2v-3zm14-6h-18c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2zm0 16.01h-18v-14.02h18v14.02z"></path></g>
+<g id="assessment"><path d="M19 3h-14c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2zm-10 14h-2v-7h2v7zm4 0h-2v-10h2v10zm4 0h-2v-4h2v4z"></path></g>
+<g id="assignment-ind"><path d="M19 3h-4.18c-.42-1.16-1.52-2-2.82-2-1.3 0-2.4.84-2.82 2h-4.18c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm0 4c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm6 12h-12v-1.4c0-2 4-3.1 6-3.1s6 1.1 6 3.1v1.4z"></path></g>
+<g id="assignment-late"><path d="M19 3h-4.18c-.42-1.16-1.52-2-2.82-2-1.3 0-2.4.84-2.82 2h-4.18c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2zm-6 15h-2v-2h2v2zm0-4h-2v-6h2v6zm-1-9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"></path></g>
+<g id="assignment"><path d="M19 3h-4.18c-.42-1.16-1.52-2-2.82-2-1.3 0-2.4.84-2.82 2h-4.18c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14h-7v-2h7v2zm3-4h-10v-2h10v2zm0-4h-10v-2h10v2z"></path></g>
+<g id="assignment-returned"><path d="M19 3h-4.18c-.42-1.16-1.52-2-2.82-2-1.3 0-2.4.84-2.82 2h-4.18c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm0 15l-5-5h3v-4h4v4h3l-5 5z"></path></g>
+<g id="assignment-return"><path d="M19 3h-4.18c-.42-1.16-1.52-2-2.82-2-1.3 0-2.4.84-2.82 2h-4.18c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm4 12h-4v3l-5-5 5-5v3h4v4z"></path></g>
+<g id="assignment-turned-in"><path d="M19 3h-4.18c-.42-1.16-1.52-2-2.82-2-1.3 0-2.4.84-2.82 2h-4.18c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-2 14l-4-4 1.41-1.41 2.59 2.58 6.59-6.59 1.41 1.42-8 8z"></path></g>
+<g id="attachment"><path d="M7.5 18c-3.04 0-5.5-2.46-5.5-5.5s2.46-5.5 5.5-5.5h10.5c2.21 0 4 1.79 4 4s-1.79 4-4 4h-8.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5h7.5v1.5h-7.5c-.55 0-1 .45-1 1s.45 1 1 1h8.5c1.38 0 2.5-1.12 2.5-2.5s-1.12-2.5-2.5-2.5h-10.5c-2.21 0-4 1.79-4 4s1.79 4 4 4h9.5v1.5h-9.5z"></path></g>
+<g id="autorenew"><path d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26l1.46-1.46c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74l-1.46 1.46c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"></path></g>
+<g id="backspace"><path d="M22 3h-15c-.69 0-1.23.35-1.59.88l-5.41 8.12 5.41 8.11c.36.53.9.89 1.59.89h15c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2zm-3 12.59l-1.41 1.41-3.59-3.59-3.59 3.59-1.41-1.41 3.59-3.59-3.59-3.59 1.41-1.41 3.59 3.59 3.59-3.59 1.41 1.41-3.59 3.59 3.59 3.59z"></path></g>
+<g id="backup"><path d="M19.35 10.04c-.68-3.45-3.71-6.04-7.35-6.04-2.89 0-5.4 1.64-6.65 4.04-3.01.32-5.35 2.87-5.35 5.96 0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zm-5.35 2.96v4h-4v-4h-3l5-5 5 5h-3z"></path></g>
+<g id="block"><path d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm-8 10c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69l-11.21 11.21c-1.06-1.35-1.69-3.05-1.69-4.9zm8 8c-1.85 0-3.55-.63-4.9-1.69l11.21-11.21c1.06 1.35 1.69 3.05 1.69 4.9 0 4.42-3.58 8-8 8z"></path></g>
+<g id="bookmark-outline"><path d="M17 3h-10c-1.1 0-1.99.9-1.99 2l-.01 16 7-3 7 3v-16c0-1.1-.9-2-2-2zm0 15l-5-2.18-5 2.18v-13h10v13z"></path></g>
+<g id="bookmark"><path d="M17 3h-10c-1.1 0-1.99.9-1.99 2l-.01 16 7-3 7 3v-16c0-1.1-.9-2-2-2z"></path></g>
+<g id="book"><path d="M18 2h-12c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-16c0-1.1-.9-2-2-2zm-12 2h5v8l-2.5-1.5-2.5 1.5v-8z"></path></g>
+<g id="bug-report"><path d="M20 8h-2.81c-.45-.78-1.07-1.45-1.82-1.96l1.63-1.63-1.41-1.41-2.17 2.17c-.46-.11-.93-.17-1.42-.17-.49 0-.96.06-1.41.17l-2.18-2.17-1.41 1.41 1.62 1.63c-.74.51-1.36 1.18-1.81 1.96h-2.81v2h2.09c-.05.33-.09.66-.09 1v1h-2v2h2v1c0 .34.04.67.09 1h-2.09v2h2.81c1.04 1.79 2.97 3 5.19 3s4.15-1.21 5.19-3h2.81v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1h2.09v-2zm-6 8h-4v-2h4v2zm0-4h-4v-2h4v2z"></path></g>
+<g id="cached"><path d="M19 8l-4 4h3c0 3.31-2.69 6-6 6-1.01 0-1.97-.25-2.8-.7l-1.46 1.46c1.23.78 2.69 1.24 4.26 1.24 4.42 0 8-3.58 8-8h3l-4-4zm-13 4c0-3.31 2.69-6 6-6 1.01 0 1.97.25 2.8.7l1.46-1.46c-1.23-.78-2.69-1.24-4.26-1.24-4.42 0-8 3.58-8 8h-3l4 4 4-4h-3z"></path></g>
+<g id="cancel"><path d="M12 2c-5.53 0-10 4.47-10 10s4.47 10 10 10 10-4.47 10-10-4.47-10-10-10zm5 13.59l-1.41 1.41-3.59-3.59-3.59 3.59-1.41-1.41 3.59-3.59-3.59-3.59 1.41-1.41 3.59 3.59 3.59-3.59 1.41 1.41-3.59 3.59 3.59 3.59z"></path></g>
+<g id="check-box-outline-blank"><path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"></path></g>
+<g id="check-box"><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></g>
+<g id="check"><path d="M9 16.17l-4.17-4.17-1.42 1.41 5.59 5.59 12-12-1.41-1.41z"></path></g>
+<g id="chevron-left"><path d="M15.41 7.41l-1.41-1.41-6 6 6 6 1.41-1.41-4.58-4.59z"></path></g>
+<g id="chevron-right"><path d="M10 6l-1.41 1.41 4.58 4.59-4.58 4.59 1.41 1.41 6-6z"></path></g>
+<g id="class"><path d="M18 2h-12c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-16c0-1.1-.9-2-2-2zm-12 2h5v8l-2.5-1.5-2.5 1.5v-8z"></path></g>
+<g id="clear"><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path></g>
+<g id="close"><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path></g>
+<g id="cloud-circle"><path d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm4.5 14h-8.5c-1.66 0-3-1.34-3-3s1.34-3 3-3l.14.01c.44-1.73 1.99-3.01 3.86-3.01 2.21 0 4 1.79 4 4h.5c1.38 0 2.5 1.12 2.5 2.5s-1.12 2.5-2.5 2.5z"></path></g>
+<g id="cloud-done"><path d="M19.35 10.04c-.68-3.45-3.71-6.04-7.35-6.04-2.89 0-5.4 1.64-6.65 4.04-3.01.32-5.35 2.87-5.35 5.96 0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zm-9.35 6.96l-3.5-3.5 1.41-1.41 2.09 2.08 5.18-5.17 1.41 1.41-6.59 6.59z"></path></g>
+<g id="cloud-download"><path d="M19.35 10.04c-.68-3.45-3.71-6.04-7.35-6.04-2.89 0-5.4 1.64-6.65 4.04-3.01.32-5.35 2.87-5.35 5.96 0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zm-2.35 2.96l-5 5-5-5h3v-4h4v4h3z"></path></g>
+<g id="cloud-off"><path d="M19.35 10.04c-.68-3.45-3.71-6.04-7.35-6.04-1.48 0-2.85.43-4.01 1.17l1.46 1.46c.76-.4 1.63-.63 2.55-.63 3.04 0 5.5 2.46 5.5 5.5v.5h1.5c1.66 0 3 1.34 3 3 0 1.13-.64 2.11-1.56 2.62l1.45 1.45c1.27-.91 2.11-2.39 2.11-4.07 0-2.64-2.05-4.78-4.65-4.96zm-16.35-4.77l2.75 2.74c-3.19.14-5.75 2.76-5.75 5.99 0 3.31 2.69 6 6 6h11.73l2 2 1.27-1.27-16.73-16.73-1.27 1.27zm4.73 4.73l8 8h-9.73c-2.21 0-4-1.79-4-4s1.79-4 4-4h1.73z"></path></g>
+<g id="cloud"><path d="M19.35 10.04c-.68-3.45-3.71-6.04-7.35-6.04-2.89 0-5.4 1.64-6.65 4.04-3.01.32-5.35 2.87-5.35 5.96 0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"></path></g>
+<g id="cloud-queue"><path d="M19.35 10.04c-.68-3.45-3.71-6.04-7.35-6.04-2.89 0-5.4 1.64-6.65 4.04-3.01.32-5.35 2.87-5.35 5.96 0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zm-.35 7.96h-13c-2.21 0-4-1.79-4-4s1.79-4 4-4h.71c.66-2.31 2.77-4 5.29-4 3.04 0 5.5 2.46 5.5 5.5v.5h1.5c1.66 0 3 1.34 3 3s-1.34 3-3 3z"></path></g>
+<g id="cloud-upload"><path d="M19.35 10.04c-.68-3.45-3.71-6.04-7.35-6.04-2.89 0-5.4 1.64-6.65 4.04-3.01.32-5.35 2.87-5.35 5.96 0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zm-5.35 2.96v4h-4v-4h-3l5-5 5 5h-3z"></path></g>
+<g id="content-copy"><path d="M16 1h-12c-1.1 0-2 .9-2 2v14h2v-14h12v-2zm3 4h-11c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2zm0 16h-11v-14h11v14z"></path></g>
+<g id="content-cut"><path d="M9.64 7.64c.23-.5.36-1.05.36-1.64 0-2.21-1.79-4-4-4s-4 1.79-4 4 1.79 4 4 4c.59 0 1.14-.13 1.64-.36l2.36 2.36-2.36 2.36c-.5-.23-1.05-.36-1.64-.36-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4c0-.59-.13-1.14-.36-1.64l2.36-2.36 7 7h3v-1l-12.36-12.36zm-3.64.36c-1.1 0-2-.89-2-2s.9-2 2-2 2 .89 2 2-.9 2-2 2zm0 12c-1.1 0-2-.89-2-2s.9-2 2-2 2 .89 2 2-.9 2-2 2zm6-7.5c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5zm7-9.5l-6 6 2 2 7-7v-1z"></path></g>
+<g id="content-paste"><path d="M19 2h-4.18c-.42-1.16-1.52-2-2.82-2-1.3 0-2.4.84-2.82 2h-4.18c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-16c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm7 18h-14v-16h2v3h10v-3h2v16z"></path></g>
+<g id="create"><path d="M3 17.25v3.75h3.75l11.06-11.06-3.75-3.75-11.06 11.06zm17.71-10.21c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path></g>
+<g id="credit-card"><path d="M4 12h16v6h-16z"></path><path d="M20 4h-16c-1.11 0-1.99.89-1.99 2l-.01 12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2v-12c0-1.11-.89-2-2-2zm0 14h-16v-6h16v6zm0-10h-16v-2h16v2z"></path></g>
+<g id="dashboard"><path d="M3 13h8v-10h-8v10zm0 8h8v-6h-8v6zm10 0h8v-10h-8v10zm0-18v6h8v-6h-8z"></path></g>
+<g id="delete"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2v-12h-12v12zm13-15h-3.5l-1-1h-5l-1 1h-3.5v2h14v-2z"></path></g>
+<g id="description"><path d="M14 2h-8c-1.1 0-1.99.9-1.99 2l-.01 16c0 1.1.89 2 1.99 2h12.01c1.1 0 2-.9 2-2v-12l-6-6zm2 16h-8v-2h8v2zm0-4h-8v-2h8v2zm-3-5v-5.5l5.5 5.5h-5.5z"></path></g>
+<g id="developer-mode-tv"><path d="M4 5h16v2h2v-2c0-1.1-.9-2-2-2h-16c-1.1 0-2 .9-2 2v2h2v-2zm3.55 8.83l-2.83-2.83 2.83-2.83-1.41-1.41-4.25 4.24 4.24 4.24 1.42-1.41zm12.45 3.17h-16v-2h-2v2c0 1.1.9 2 2 2h4v2h8v-2h4c1.1 0 1.99-.9 1.99-2v-2h-1.99v2zm2-6.01l-4.24-4.24-1.41 1.41 2.82 2.84-2.83 2.83 1.41 1.41 4.25-4.23v-.02z"></path></g>
+<g id="dns"><path d="M20 13h-16c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zm-13 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm13-16h-16c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zm-13 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"></path></g>
+<g id="done-all"><path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41 6.34-6.34zm4.24-1.41l-10.58 10.58-4.18-4.17-1.41 1.41 5.59 5.59 12-12-1.42-1.41zm-21.83 7.82l5.59 5.59 1.41-1.41-5.58-5.59-1.42 1.41z"></path></g>
+<g id="done"><path d="M9 16.17l-4.17-4.17-1.42 1.41 5.59 5.59 12-12-1.41-1.41z"></path></g>
+<g id="drafts"><path d="M21.99 8c0-.72-.37-1.35-.94-1.7l-9.05-5.3-9.05 5.3c-.57.35-.95.98-.95 1.7v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2l-.01-10zm-9.99 5l-8.26-5.16 8.26-4.84 8.26 4.84-8.26 5.16z"></path></g>
+<g id="drawer"><path d="M20,4H4C2.8,4,2,4.8,2,6v12c0,1.2,0.8,2,2,2h16c1,0,2-0.8,2-2V6C22,4.8,21,4,20,4z M20,18h-6V6h6V18z"></path></g>
+<g id="error"><path d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-2h2v2zm0-4h-2v-6h2v6z"></path></g>
+<g id="event"><path d="M17 12h-5v5h5v-5zm-1-11v2h-8v-2h-2v2h-1c-1.11 0-1.99.9-1.99 2l-.01 14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2h-1v-2h-2zm3 18h-14v-11h14v11z"></path></g>
+<g id="exit-to-app"><path d="M10.09 15.59l1.41 1.41 5-5-5-5-1.41 1.41 2.58 2.59h-9.67v2h9.67l-2.58 2.59zm8.91-12.59h-14c-1.11 0-2 .9-2 2v4h2v-4h14v14h-14v-4h-2v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2z"></path></g>
+<g id="expand-less"><path d="M12 8l-6 6 1.41 1.41 4.59-4.58 4.59 4.58 1.41-1.41z"></path></g>
+<g id="expand-more"><path d="M16.59 8.59l-4.59 4.58-4.59-4.58-1.41 1.41 6 6 6-6z"></path></g>
+<g id="explore"><path d="M12 10.9c-.61 0-1.1.49-1.1 1.1s.49 1.1 1.1 1.1c.61 0 1.1-.49 1.1-1.1s-.49-1.1-1.1-1.1zm0-8.9c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm2.19 12.19l-8.19 3.81 3.81-8.19 8.19-3.81-3.81 8.19z"></path></g>
+<g id="extension"><path d="M20.5 11h-1.5v-4c0-1.1-.9-2-2-2h-4v-1.5c0-1.38-1.12-2.5-2.5-2.5s-2.5 1.12-2.5 2.5v1.5h-4c-1.1 0-1.99.9-1.99 2v3.8h1.49c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7h-1.5v3.8c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7 1.49 0 2.7 1.21 2.7 2.7v1.5h3.8c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5s-1.12-2.5-2.5-2.5z"></path></g>
+<g id="face-unlock"><path d="M14.69 17.1c-.74.58-1.7.9-2.69.9s-1.95-.32-2.69-.9c-.22-.17-.53-.13-.7.09-.17.22-.13.53.09.7.91.72 2.09 1.11 3.3 1.11s2.39-.39 3.31-1.1c.22-.17.26-.48.09-.7-.17-.23-.49-.26-.71-.1z"></path><circle cx="8.5" cy="12.5" r="1"></circle><path d="M12 0c-6.63 0-12 5.37-12 12s5.37 12 12 12 12-5.37 12-12-5.37-12-12-12zm7.96 14.82c-1.09 3.74-4.27 6.46-8.04 6.46-3.78 0-6.96-2.72-8.04-6.47-1.19-.11-2.13-1.18-2.13-2.52 0-1.27.85-2.31 1.97-2.5 2.09-1.46 3.8-3.49 4.09-5.05v-.01c1.35 2.63 6.3 5.19 11.83 5.06l.3-.03c1.28 0 2.31 1.14 2.31 2.54 0 1.38-1.02 2.51-2.29 2.52z"></path><circle cx="15.5" cy="12.5" r="1"></circle></g>
+<g id="favorite-outline"><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09-1.09-1.28-2.76-2.09-4.5-2.09-3.08 0-5.5 2.42-5.5 5.5 0 3.78 3.4 6.86 8.55 11.54l1.45 1.31 1.45-1.32c5.15-4.67 8.55-7.75 8.55-11.53 0-3.08-2.42-5.5-5.5-5.5zm-4.4 15.55l-.1.1-.1-.1c-4.76-4.31-7.9-7.16-7.9-10.05 0-2 1.5-3.5 3.5-3.5 1.54 0 3.04.99 3.57 2.36h1.87c.52-1.37 2.02-2.36 3.56-2.36 2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"></path></g>
+<g id="favorite"><path d="M12 21.35l-1.45-1.32c-5.15-4.67-8.55-7.75-8.55-11.53 0-3.08 2.42-5.5 5.5-5.5 1.74 0 3.41.81 4.5 2.09 1.09-1.28 2.76-2.09 4.5-2.09 3.08 0 5.5 2.42 5.5 5.5 0 3.78-3.4 6.86-8.55 11.54l-1.45 1.31z"></path></g>
+<g id="file-download"><path d="M19 9h-4v-6h-6v6h-4l7 7 7-7zm-14 9v2h14v-2h-14z"></path></g>
+<g id="file-map"><path d="M12 6.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm7-5.5h-14c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2zm-6.5 16h-1c-.95-4.09-3.99-5.84-3.99-9 0-2.49 2-4.5 4.49-4.5s4.51 2.01 4.51 4.5c0 3.16-3.06 4.91-4.01 9z"></path></g>
+<g id="file-upload"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2h-14z"></path></g>
+<g id="filter-list"><path d="M10 18h4v-2h-4v2zm-7-12v2h18v-2h-18zm3 7h12v-2h-12v2z"></path></g>
+<g id="find-in-page"><path d="M20 19.59v-11.59l-6-6h-8c-1.1 0-1.99.9-1.99 2l-.01 16c0 1.1.89 2 1.99 2h12.01c.45 0 .85-.15 1.19-.4l-4.43-4.43c-.8.52-1.74.83-2.76.83-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5c0 1.02-.31 1.96-.83 2.75l3.83 3.84zm-11-6.59c0 1.66 1.34 3 3 3s3-1.34 3-3-1.34-3-3-3-3 1.34-3 3z"></path></g>
+<g id="find-replace"><path d="M11 6c1.38 0 2.63.56 3.54 1.46l-2.54 2.54h6v-6l-2.05 2.05c-1.27-1.27-3.02-2.05-4.95-2.05-3.53 0-6.43 2.61-6.92 6h2.02c.46-2.28 2.48-4 4.9-4zm5.64 9.14c.66-.9 1.12-1.97 1.28-3.14h-2.02c-.46 2.28-2.48 4-4.9 4-1.38 0-2.63-.56-3.54-1.46l2.54-2.54h-6v6l2.05-2.05c1.27 1.27 3.02 2.05 4.95 2.05 1.55 0 2.98-.51 4.14-1.36l4.86 4.85 1.49-1.49-4.85-4.86z"></path></g>
+<g id="flag"><path d="M14.4 6l-.4-2h-9v17h2v-7h5.6l.4 2h7v-10z"></path></g>
+<g id="flip-to-back"><path d="M9 7h-2v2h2v-2zm0 4h-2v2h2v-2zm0-8c-1.11 0-2 .9-2 2h2v-2zm4 12h-2v2h2v-2zm6-12v2h2c0-1.1-.9-2-2-2zm-6 0h-2v2h2v-2zm-4 14v-2h-2c0 1.1.89 2 2 2zm10-4h2v-2h-2v2zm0-4h2v-2h-2v2zm0 8c1.1 0 2-.9 2-2h-2v2zm-14-10h-2v12c0 1.1.89 2 2 2h12v-2h-12v-12zm10-2h2v-2h-2v2zm0 12h2v-2h-2v2z"></path></g>
+<g id="flip-to-front"><path d="M3 13h2v-2h-2v2zm0 4h2v-2h-2v2zm2 4v-2h-2c0 1.1.89 2 2 2zm-2-12h2v-2h-2v2zm12 12h2v-2h-2v2zm4-18h-10c-1.11 0-2 .9-2 2v10c0 1.1.89 2 2 2h10c1.1 0 2-.9 2-2v-10c0-1.1-.9-2-2-2zm0 12h-10v-10h10v10zm-8 6h2v-2h-2v2zm-4 0h2v-2h-2v2z"></path></g>
+<g id="folder-open"><path d="M20 6h-8l-2-2h-6c-1.1 0-1.99.9-1.99 2l-.01 12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-10c0-1.1-.9-2-2-2zm0 12h-16v-10h16v10z"></path></g>
+<g id="folder"><path d="M10 4h-6c-1.1 0-1.99.9-1.99 2l-.01 12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-10c0-1.1-.9-2-2-2h-8l-2-2z"></path></g>
+<g id="folder-shared"><path d="M20 6h-8l-2-2h-6c-1.1 0-1.99.9-1.99 2l-.01 12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-10c0-1.1-.9-2-2-2zm-5 3c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm4 8h-8v-1c0-1.33 2.67-2 4-2s4 .67 4 2v1z"></path></g>
+<g id="forward"><path d="M12 8v-4l8 8-8 8v-4h-8v-8z"></path></g>
+<g id="fullscreen-exit"><path d="M5 16h3v3h2v-5h-5v2zm3-8h-3v2h5v-5h-2v3zm6 11h2v-3h3v-2h-5v5zm2-11v-3h-2v5h5v-2h-3z"></path></g>
+<g id="fullscreen"><path d="M7 14h-2v5h5v-2h-3v-3zm-2-4h2v-3h3v-2h-5v5zm12 7h-3v2h5v-5h-2v3zm-3-12v2h3v3h2v-5h-5z"></path></g>
+<g id="gesture"><path d="M4.59 6.89c.7-.71 1.4-1.35 1.71-1.22.5.2 0 1.03-.3 1.52-.25.42-2.86 3.89-2.86 6.31 0 1.28.48 2.34 1.34 2.98.75.56 1.74.73 2.64.46 1.07-.31 1.95-1.4 3.06-2.77 1.21-1.49 2.83-3.44 4.08-3.44 1.63 0 1.65 1.01 1.76 1.79-3.78.64-5.38 3.67-5.38 5.37 0 1.7 1.44 3.09 3.21 3.09 1.63 0 4.29-1.33 4.69-6.1h2.46v-2.5h-2.47c-.15-1.65-1.09-4.2-4.03-4.2-2.25 0-4.18 1.91-4.94 2.84-.58.73-2.06 2.48-2.29 2.72-.25.3-.68.84-1.11.84-.45 0-.72-.83-.36-1.92.35-1.09 1.4-2.86 1.85-3.52.78-1.14 1.3-1.92 1.3-3.28 0-2.17-1.64-2.86-2.51-2.86-1.32 0-2.47 1-2.72 1.25-.36.36-.66.66-.88.93l1.75 1.71zm9.29 11.66c-.31 0-.74-.26-.74-.72 0-.6.73-2.2 2.87-2.76-.3 2.69-1.43 3.48-2.13 3.48z"></path></g>
+<g id="get-app"><path d="M19 9h-4v-6h-6v6h-4l7 7 7-7zm-14 9v2h14v-2h-14z"></path></g>
+<g id="grade"><path d="M12 17.27l6.18 3.73-1.64-7.03 5.46-4.73-7.19-.61-2.81-6.63-2.81 6.63-7.19.61 5.46 4.73-1.64 7.03z"></path></g>
+<g id="group-work"><path d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm-4 15.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5zm1.5-9.5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5-2.5-1.12-2.5-2.5zm6.5 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path></g>
+<g id="help"><path d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92c-.72.73-1.17 1.33-1.17 2.83h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2h-2c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"></path></g>
+<g id="highlight-remove"><path d="M14.59 8l-2.59 2.59-2.59-2.59-1.41 1.41 2.59 2.59-2.59 2.59 1.41 1.41 2.59-2.59 2.59 2.59 1.41-1.41-2.59-2.59 2.59-2.59-1.41-1.41zm-2.59-6c-5.53 0-10 4.47-10 10s4.47 10 10 10 10-4.47 10-10-4.47-10-10-10zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></g>
+<g id="history"><path opacity=".9" d="M13 3c-4.97 0-9 4.03-9 9h-3l3.89 3.89.07.14 4.04-4.03h-3c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42c1.63 1.63 3.87 2.64 6.36 2.64 4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08v-4.25h-1.5z"></path></g>
+<g id="home"><path d="M10 20v-6h4v6h5v-8h3l-10-9-10 9h3v8z"></path></g>
+<g id="https"><path d="M18 8h-1v-2c0-2.76-2.24-5-5-5s-5 2.24-5 5v2h-1c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9h-6.2v-2c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"></path></g>
+<g id="inbox"><path d="M19 3h-14.01c-1.1 0-1.98.9-1.98 2l-.01 14c0 1.1.89 2 1.99 2h14.01c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2zm0 12h-4c0 1.66-1.34 3-3 3s-3-1.34-3-3h-4.01v-10h14.01v10zm-3-5h-2v-3h-4v3h-2l4 4 4-4z"></path></g>
+<g id="info-outline"><path d="M11 17h2v-6h-2v6zm1-15c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-11h2v-2h-2v2z"></path></g>
+<g id="info"><path d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2v-2h2v2z"></path></g>
+<g id="input"><path d="M21 3.01h-18c-1.1 0-2 .9-2 2v3.99h2v-4.01h18v14.03h-18v-4.02h-2v4.01c0 1.1.9 1.98 2 1.98h18c1.1 0 2-.88 2-1.98v-14c0-1.11-.9-2-2-2zm-10 12.99l4-4-4-4v3h-10v2h10v3z"></path></g>
+<g id="invert-colors"><path d="M17.66 7.93l-5.66-5.66-5.66 5.66c-3.12 3.12-3.12 8.19 0 11.31 1.56 1.56 3.61 2.34 5.66 2.34 2.05 0 4.1-.78 5.66-2.34 3.12-3.12 3.12-8.19 0-11.31zm-5.66 11.66c-1.6 0-3.11-.62-4.24-1.76-1.14-1.14-1.76-2.64-1.76-4.24s.62-3.11 1.76-4.24l4.24-4.25v14.49z"></path></g>
+<g id="label-outline"><path d="M17.63 5.84c-.36-.51-.96-.84-1.63-.84l-11 .01c-1.1 0-2 .89-2 1.99v10c0 1.1.9 1.99 2 1.99l11 .01c.67 0 1.27-.33 1.63-.84l4.37-6.16-4.37-6.16zm-1.63 11.16h-11v-10h11l3.55 5-3.55 5z"></path></g>
+<g id="label"><path d="M17.63 5.84c-.36-.51-.96-.84-1.63-.84l-11 .01c-1.1 0-2 .89-2 1.99v10c0 1.1.9 1.99 2 1.99l11 .01c.67 0 1.27-.33 1.63-.84l4.37-6.16-4.37-6.16z"></path></g>
+<g id="language"><path d="M11.99 2c-5.52 0-9.99 4.48-9.99 10s4.47 10 9.99 10c5.53 0 10.01-4.48 10.01-10s-4.48-10-10.01-10zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zm-6.92-3.96c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zm-7.74 9.96c-.16-.64-.26-1.31-.26-2s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2h-3.38zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8h-2.95c.96-1.66 2.49-2.93 4.33-3.56-.6 1.11-1.06 2.31-1.38 3.56zm3.97 11.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zm2.34-5.96h-4.68c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zm1.77-5.56c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"></path></g>
+<g id="launch"><path d="M19 19h-14v-14h7v-2h-7c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zm-5-16v2h3.59l-9.83 9.83 1.41 1.41 9.83-9.83v3.59h2v-7h-7z"></path></g>
+<g id="link"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4v-1.9h-4c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9h-4c-1.71 0-3.1-1.39-3.1-3.1zm4.1 1h8v-2h-8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4v1.9h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></g>
+<g id="list"><path d="M3 13h2v-2h-2v2zm0 4h2v-2h-2v2zm0-8h2v-2h-2v2zm4 4h14v-2h-14v2zm0 4h14v-2h-14v2zm0-10v2h14v-2h-14z"></path></g>
+<g id="lock-open"><path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1v-2c0-2.76-2.24-5-5-5s-5 2.24-5 5h1.9c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2h-9.1c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-10c0-1.1-.9-2-2-2zm0 12h-12v-10h12v10z"></path></g>
+<g id="lock-outline"><path d="M18 8h-1v-2c0-2.76-2.24-5-5-5s-5 2.24-5 5v2h-1c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-10c0-1.1-.9-2-2-2zm-6-5.1c1.71 0 3.1 1.39 3.1 3.1v2h-6.1v-2h-.1c0-1.71 1.39-3.1 3.1-3.1zm6 17.1h-12v-10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"></path></g>
+<g id="lock"><path d="M18 8h-1v-2c0-2.76-2.24-5-5-5s-5 2.24-5 5v2h-1c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9h-6.2v-2c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"></path></g>
+<g id="loyalty"><path d="M21.41 11.58l-9-9c-.36-.36-.86-.58-1.41-.58h-7c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zm-15.91-4.58c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm11.77 8.27l-4.27 4.27-4.27-4.27c-.45-.46-.73-1.08-.73-1.77 0-1.38 1.12-2.5 2.5-2.5.69 0 1.32.28 1.77.74l.73.72.73-.73c.45-.45 1.08-.73 1.77-.73 1.38 0 2.5 1.12 2.5 2.5 0 .69-.28 1.32-.73 1.77z"></path></g>
+<g id="mail"><path d="M20 4h-16c-1.1 0-1.99.9-1.99 2l-.01 12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-12c0-1.1-.9-2-2-2zm0 4l-8 5-8-5v-2l8 5 8-5v2z"></path></g>
+<g id="markunread-mailbox"><path d="M20 6h-10v6h-2v-8h6v-4h-8v6h-2c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-12c0-1.1-.9-2-2-2z"></path></g>
+<g id="markunread"><path d="M20 4h-16c-1.1 0-1.99.9-1.99 2l-.01 12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-12c0-1.1-.9-2-2-2zm0 4l-8 5-8-5v-2l8 5 8-5v2z"></path></g>
+<g id="menu"><path d="M3 18h18v-2h-18v2zm0-5h18v-2h-18v2zm0-7v2h18v-2h-18z"></path></g>
+<g id="more-horiz"><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></g>
+<g id="more-vert"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></g>
+<g id="note-add"><path d="M14 2h-8c-1.1 0-1.99.9-1.99 2l-.01 16c0 1.1.89 2 1.99 2h12.01c1.1 0 2-.9 2-2v-12l-6-6zm2 14h-3v3h-2v-3h-3v-2h3v-3h2v3h3v2zm-3-7v-5.5l5.5 5.5h-5.5z"></path></g>
+<g id="open-in-browser"><path d="M19 4h-14c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h4v-2h-4v-10h14v10h-4v2h4c1.1 0 2-.9 2-2v-12c0-1.1-.89-2-2-2zm-7 6l-4 4h3v6h2v-6h3l-4-4z"></path></g>
+<g id="open-in-new"><path d="M19 19h-14v-14h7v-2h-7c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zm-5-16v2h3.59l-9.83 9.83 1.41 1.41 9.83-9.83v3.59h2v-7h-7z"></path></g>
+<g id="open-with"><path d="M10 9h4v-3h3l-5-5-5 5h3v3zm-1 1h-3v-3l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3h-3l5 5 5-5h-3v-3z"></path></g>
+<g id="pageview"><path d="M11 8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zm8-5h-14c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2zm-1.41 16l-3.83-3.83c-.8.52-1.74.83-2.76.83-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5c0 1.02-.31 1.96-.83 2.75l3.83 3.84-1.41 1.41z"></path></g>
+<g id="payment"><path d="M20 4h-16c-1.11 0-1.99.89-1.99 2l-.01 12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2v-12c0-1.11-.89-2-2-2zm0 14h-16v-6h16v6zm0-10h-16v-2h16v2z"></path></g>
+<g id="perm-camera-mic"><path d="M20 5h-3.17l-1.83-2h-6l-1.83 2h-3.17c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7v-2.09c-2.83-.48-5-2.94-5-5.91h2c0 2.21 1.79 4 4 4s4-1.79 4-4h2c0 2.97-2.17 5.43-5 5.91v2.09h7c1.1 0 2-.9 2-2v-12c0-1.1-.9-2-2-2zm-6 8c0 1.1-.9 2-2 2s-2-.9-2-2v-4c0-1.1.9-2 2-2s2 .9 2 2v4z"></path></g>
+<g id="perm-contact-cal"><path d="M19 3h-1v-2h-2v2h-8v-2h-2v2h-1c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2zm-7 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm6 12h-12v-1c0-2 4-3.1 6-3.1s6 1.1 6 3.1v1z"></path></g>
+<g id="perm-data-setting"><path d="M18.99 11.5c.34 0 .67.03 1 .07l.01-11.57-20 20h11.56c-.04-.33-.07-.66-.07-1 0-4.14 3.36-7.5 7.5-7.5zm3.71 7.99c.02-.16.04-.32.04-.49 0-.17-.01-.33-.04-.49l1.06-.83c.09-.08.12-.21.06-.32l-1-1.73c-.06-.11-.19-.15-.31-.11l-1.24.5c-.26-.2-.54-.37-.85-.49l-.19-1.32c-.01-.12-.12-.21-.24-.21h-2c-.12 0-.23.09-.25.21l-.19 1.32c-.3.13-.59.29-.85.49l-1.24-.5c-.11-.04-.24 0-.31.11l-1 1.73c-.06.11-.04.24.06.32l1.06.83c-.02.16-.03.32-.03.49 0 .17.01.33.03.49l-1.06.83c-.09.08-.12.21-.06.32l1 1.73c.06.11.19.15.31.11l1.24-.5c.26.2.54.37.85.49l.19 1.32c.02.12.12.21.25.21h2c.12 0 .23-.09.25-.21l.19-1.32c.3-.13.59-.29.84-.49l1.25.5c.11.04.24 0 .31-.11l1-1.73c.06-.11.03-.24-.06-.32l-1.07-.83zm-3.71 1.01c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"></path></g>
+<g id="perm-device-info"><path d="M13 7h-2v2h2v-2zm0 4h-2v6h2v-6zm4-9.99l-10-.01c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2v-18c0-1.1-.9-1.99-2-1.99zm0 17.99h-10v-14h10v14z"></path></g>
+<g id="perm-identity"><path d="M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1-2.1-.94-2.1-2.1.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1h-12.2v-1.1c0-.64 3.13-2.1 6.1-2.1m0-10.9c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z"></path></g>
+<g id="perm-media"><path d="M2 6h-2v5h.01l-.01 9c0 1.1.9 2 2 2h18v-2h-18v-14zm20-2h-8l-2-2h-6c-1.1 0-1.99.9-1.99 2l-.01 12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-10c0-1.1-.9-2-2-2zm-15 11l4.5-6 3.5 4.51 2.5-3.01 3.5 4.5h-14z"></path></g>
+<g id="perm-phone-msg"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57-.35-.11-.74-.03-1.02.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.58l2.2-2.21c.28-.27.36-.66.25-1.01-.37-1.12-.57-2.32-.57-3.57 0-.55-.45-1-1-1h-3.5c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1zm-8-12.5v10l3-3h6v-7h-9z"></path></g>
+<g id="perm-scan-wifi"><path d="M12 3c-5.05 0-8.85 1.85-12 4.23l12 14.77 12-14.75c-3.15-2.38-6.95-4.25-12-4.25zm1 13h-2v-6h2v6zm-2-8v-2h2v2h-2z"></path></g>
+<g id="picture-in-picture"><path d="M19 7h-8v6h8v-6zm2-4h-18c-1.1 0-2 .9-2 2v14c0 1.1.9 1.98 2 1.98h18c1.1 0 2-.88 2-1.98v-14c0-1.1-.9-2-2-2zm0 16.01h-18v-14.03h18v14.03z"></path></g>
+<g id="polymer"><path d="M19 4h-4l-7.89 12.63-2.61-4.63 4.5-8h-4l-4.5 8 4.5 8h4l7.89-12.63 2.61 4.63-4.5 8h4l4.5-8z"></path></g>
+<g id="print"><path d="M19 8h-14c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11h-8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9h-12v4h12v-4z"></path></g>
+<g id="query-builder"><path d="M11.99 2c-5.52 0-9.99 4.48-9.99 10s4.47 10 9.99 10c5.53 0 10.01-4.48 10.01-10s-4.48-10-10.01-10zm.01 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path><path d="M12.5 7h-1.5v6l5.25 3.15.75-1.23-4.5-2.67z"></path></g>
+<g id="question-answer"><path d="M21 6h-2v9h-13v2c0 .55.45 1 1 1h11l4 4v-15c0-.55-.45-1-1-1zm-4 6v-9c0-.55-.45-1-1-1h-13c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"></path></g>
+<g id="radio-button-off"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path></g>
+<g id="radio-button-on"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path></g>
+<g id="receipt"><path d="M18 17h-12v-2h12v2zm0-4h-12v-2h12v2zm0-4h-12v-2h12v2zm-15 13l1.5-1.5 1.5 1.5 1.5-1.5 1.5 1.5 1.5-1.5 1.5 1.5 1.5-1.5 1.5 1.5 1.5-1.5 1.5 1.5 1.5-1.5 1.5 1.5v-20l-1.5 1.5-1.5-1.5-1.5 1.5-1.5-1.5-1.5 1.5-1.5-1.5-1.5 1.5-1.5-1.5-1.5 1.5-1.5-1.5-1.5 1.5-1.5-1.5v20z"></path></g>
+<g id="redeem"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68c-.54-.8-1.45-1.34-2.5-1.34-1.66 0-3 1.34-3 3 0 .35.07.69.18 1h-2.18c-1.11 0-1.99.89-1.99 2l-.01 11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2v-11c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-6 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15h-16v-2h16v2zm0-5h-16v-6h5.08l-2.08 2.83 1.62 1.17 2.38-3.24 1-1.36 1 1.36 2.38 3.24 1.62-1.17-2.08-2.83h5.08v6z"></path></g>
+<g id="redo"><path d="M18.4 10.6c-1.85-1.61-4.25-2.6-6.9-2.6-4.65 0-8.58 3.03-9.96 7.22l2.36.78c1.05-3.19 4.05-5.5 7.6-5.5 1.95 0 3.73.72 5.12 1.88l-3.62 3.62h9v-9l-3.6 3.6z"></path></g>
+<g id="refresh"><path d="M17.65 6.35c-1.45-1.45-3.44-2.35-5.65-2.35-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78l-3.22 3.22h7v-7l-2.35 2.35z"></path></g>
+<g id="remove-circle-outline"><path d="M7 11v2h10v-2h-10zm5-9c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></g>
+<g id="remove-circle"><path d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm5 11h-10v-2h10v2z"></path></g>
+<g id="remove"><path d="M19 13h-14v-2h14v2z"></path></g>
+<g id="reorder"><path d="M3,15h18v-2H3V15z M3,19h18v-2H3V19z M3,11h18V9H3V11z M3,5v2h18V5H3z"></path></g>
+<g id="reply-all"><path d="M7 8v-3l-7 7 7 7v-3l-4-4 4-4zm6 1v-4l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"></path></g>
+<g id="reply"><path d="M10 9v-4l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"></path></g>
+<g id="report"><path d="M15.73 3h-7.46l-5.27 5.27v7.46l5.27 5.27h7.46l5.27-5.27v-7.46l-5.27-5.27zm-3.73 14.3c-.72 0-1.3-.58-1.3-1.3 0-.72.58-1.3 1.3-1.3.72 0 1.3.58 1.3 1.3 0 .72-.58 1.3-1.3 1.3zm1-4.3h-2v-6h2v6z"></path></g>
+<g id="report-problem"><path d="M1 21h22l-11-19-11 19zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></g>
+<g id="restore"><path d="M13 3c-4.97 0-9 4.03-9 9h-3l3.89 3.89.07.14 4.04-4.03h-3c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42c1.63 1.63 3.87 2.64 6.36 2.64 4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08v-4.25h-1.5z"></path></g>
+<g id="room"><path d="M12 2c-3.87 0-7 3.13-7 7 0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path></g>
+<g id="rotation-3d"><path d="M7.52 21.48c-3.27-1.54-5.61-4.72-5.97-8.48h-1.5c.51 6.16 5.66 11 11.95 11l.66-.03-3.81-3.81-1.33 1.32zm.89-6.52c-.19 0-.37-.03-.52-.08-.16-.06-.29-.13-.4-.24-.11-.1-.2-.22-.26-.37-.06-.14-.09-.3-.09-.47h-1.3c0 .36.07.68.21.95.14.27.33.5.56.69.24.18.51.32.82.41.3.1.62.15.96.15.37 0 .72-.05 1.03-.15.32-.1.6-.25.83-.44s.42-.43.55-.72c.13-.29.2-.61.2-.97 0-.19-.02-.38-.07-.56-.05-.18-.12-.35-.23-.51-.1-.16-.24-.3-.4-.43-.17-.13-.37-.23-.61-.31.2-.09.37-.2.52-.33.15-.13.27-.27.37-.42.1-.15.17-.3.22-.46.05-.16.07-.32.07-.48 0-.36-.06-.68-.18-.96-.12-.28-.29-.51-.51-.69-.2-.19-.47-.33-.77-.43-.31-.09-.65-.14-1.02-.14-.36 0-.69.05-1 .16-.3.11-.57.26-.79.45-.21.19-.38.41-.51.67-.12.26-.18.54-.18.85h1.3c0-.17.03-.32.09-.45s.14-.25.25-.34c.11-.09.23-.17.38-.22.15-.05.3-.08.48-.08.4 0 .7.1.89.31.19.2.29.49.29.86 0 .18-.03.34-.08.49-.05.15-.14.27-.25.37-.11.1-.25.18-.41.24-.16.06-.36.09-.58.09h-.77v1.03h.77c.22 0 .42.02.6.07s.33.13.45.23c.12.11.22.24.29.4.07.16.1.35.1.57 0 .41-.12.72-.35.93-.23.23-.55.33-.95.33zm8.55-5.92c-.32-.33-.7-.59-1.14-.77-.43-.18-.92-.27-1.46-.27h-2.36v8h2.3c.55 0 1.06-.09 1.51-.27.45-.18.84-.43 1.16-.76.32-.33.57-.73.74-1.19.17-.47.26-.99.26-1.57v-.4c0-.58-.09-1.1-.26-1.57-.18-.47-.43-.87-.75-1.2zm-.39 3.16c0 .42-.05.79-.14 1.13-.1.33-.24.62-.43.85-.19.23-.43.41-.71.53-.29.12-.62.18-.99.18h-.91v-5.77h.97c.72 0 1.27.23 1.64.69.38.46.57 1.12.57 1.99v.4zm-4.57-12.2l-.66.03 3.81 3.81 1.33-1.33c3.27 1.55 5.61 4.72 5.96 8.48h1.5c-.5-6.15-5.65-10.99-11.94-10.99z"></path></g>
+<g id="save"><path d="M17 3h-12c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-12l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10h-10v-4h10v4z"></path></g>
+<g id="schedule"><path fill-opacity=".9" d="M11.99 2c-5.52 0-9.99 4.48-9.99 10s4.47 10 9.99 10c5.53 0 10.01-4.48 10.01-10s-4.48-10-10.01-10zm.01 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path><path fill-opacity=".9" d="M12.5 7h-1.5v6l5.25 3.15.75-1.23-4.5-2.67z"></path></g>
+<g id="search"><path d="M15.5 14h-.79l-.28-.27c.98-1.14 1.57-2.62 1.57-4.23 0-3.59-2.91-6.5-6.5-6.5s-6.5 2.91-6.5 6.5 2.91 6.5 6.5 6.5c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99 1.49-1.49-4.99-5zm-6 0c-2.49 0-4.5-2.01-4.5-4.5s2.01-4.5 4.5-4.5 4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5z"></path></g>
+<g id="select-all"><path d="M3 5h2v-2c-1.1 0-2 .9-2 2zm0 8h2v-2h-2v2zm4 8h2v-2h-2v2zm-4-12h2v-2h-2v2zm10-6h-2v2h2v-2zm6 0v2h2c0-1.1-.9-2-2-2zm-14 18v-2h-2c0 1.1.9 2 2 2zm-2-4h2v-2h-2v2zm6-14h-2v2h2v-2zm2 18h2v-2h-2v2zm8-8h2v-2h-2v2zm0 8c1.1 0 2-.9 2-2h-2v2zm0-12h2v-2h-2v2zm0 8h2v-2h-2v2zm-4 4h2v-2h-2v2zm0-16h2v-2h-2v2zm-8 12h10v-10h-10v10zm2-8h6v6h-6v-6z"></path></g>
+<g id="send-money"><path d="M2 12c0-2.61 1.67-4.83 4-5.65v-2.09c-3.45.89-6 4.01-6 7.74s2.55 6.85 6 7.74v-2.09c-2.33-.82-4-3.04-4-5.65zm22 0l-4-4v3h-7v2h7v3l4-4zm-10 6c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.16.67 4.24 1.76l1.42-1.41c-1.45-1.45-3.45-2.35-5.66-2.35-4.42 0-8 3.58-8 8s3.58 8 8 8c2.21 0 4.21-.9 5.66-2.34l-1.42-1.41c-1.08 1.08-2.58 1.75-4.24 1.75z"></path></g>
+<g id="send"><path d="M2.01 21l20.99-9-20.99-9-.01 7 15 2-15 2z"></path></g>
+<g id="settings-applications"><path d="M12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm7-7h-14c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2v-14c0-1.1-.89-2-2-2zm-1.75 9c0 .23-.02.46-.05.68l1.48 1.16c.13.11.17.3.08.45l-1.4 2.42c-.09.15-.27.21-.43.15l-1.74-.7c-.36.28-.76.51-1.18.69l-.26 1.85c-.03.17-.18.3-.35.3h-2.8c-.17 0-.32-.13-.35-.29l-.26-1.85c-.43-.18-.82-.41-1.18-.69l-1.74.7c-.16.06-.34 0-.43-.15l-1.4-2.42c-.09-.15-.05-.34.08-.45l1.48-1.16c-.03-.23-.05-.46-.05-.69 0-.23.02-.46.05-.68l-1.48-1.16c-.13-.11-.17-.3-.08-.45l1.4-2.42c.09-.15.27-.21.43-.15l1.74.7c.36-.28.76-.51 1.18-.69l.26-1.85c.03-.17.18-.3.35-.3h2.8c.17 0 .32.13.35.29l.26 1.85c.43.18.82.41 1.18.69l1.74-.7c.16-.06.34 0 .43.15l1.4 2.42c.09.15.05.34-.08.45l-1.48 1.16c.03.23.05.46.05.69z"></path></g>
+<g id="settings-backup-restore"><path d="M14 12c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2 2-.9 2-2zm-2-9c-4.97 0-9 4.03-9 9h-3l4 4 4-4h-3c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.51 0-2.91-.49-4.06-1.3l-1.42 1.44c1.52 1.16 3.42 1.86 5.48 1.86 4.97 0 9-4.03 9-9s-4.03-9-9-9z"></path></g>
+<g id="settings-bluetooth"><path d="M11 24h2v-2h-2v2zm-4 0h2v-2h-2v2zm8 0h2v-2h-2v2zm2.71-18.29l-5.71-5.71h-1v7.59l-4.59-4.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 4.59-4.59v7.59h1l5.71-5.71-4.3-4.29 4.3-4.29zm-4.71-1.88l1.88 1.88-1.88 1.88v-3.76zm1.88 10.46l-1.88 1.88v-3.76l1.88 1.88z"></path></g>
+<g id="settings-cell"><path d="M7 24h2v-2h-2v2zm4 0h2v-2h-2v2zm4 0h2v-2h-2v2zm1-23.99l-8-.01c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2v-16c0-1.1-.9-1.99-2-1.99zm0 15.99h-8v-12h8v12z"></path></g>
+<g id="settings-display"><path d="M21 3h-18c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2zm0 16.01h-18v-14.02h18v14.02zm-13-3.01h2.5l1.5 1.5 1.5-1.5h2.5v-2.5l1.5-1.5-1.5-1.5v-2.5h-2.5l-1.5-1.5-1.5 1.5h-2.5v2.5l-1.5 1.5 1.5 1.5v2.5zm4-7c1.66 0 3 1.34 3 3s-1.34 3-3 3v-6z"></path></g>
+<g id="settings-ethernet"><path d="M7.77 6.76l-1.54-1.28-5.41 6.52 5.41 6.52 1.54-1.28-4.35-5.24 4.35-5.24zm-.77 6.24h2v-2h-2v2zm10-2h-2v2h2v-2zm-6 2h2v-2h-2v2zm6.77-7.52l-1.54 1.28 4.35 5.24-4.35 5.24 1.54 1.28 5.41-6.52-5.41-6.52z"></path></g>
+<g id="settings-input-antenna"><path d="M12 5c-3.87 0-7 3.13-7 7h2c0-2.76 2.24-5 5-5s5 2.24 5 5h2c0-3.87-3.13-7-7-7zm1 9.29c.88-.39 1.5-1.26 1.5-2.29 0-1.38-1.12-2.5-2.5-2.5s-2.5 1.12-2.5 2.5c0 1.02.62 1.9 1.5 2.29v3.3l-3.41 3.41 1.41 1.41 3-3 3 3 1.41-1.41-3.41-3.41v-3.3zm-1-13.29c-6.07 0-11 4.93-11 11h2c0-4.97 4.03-9 9-9s9 4.03 9 9h2c0-6.07-4.93-11-11-11z"></path></g>
+<g id="settings-input-component"><path d="M5 2c0-.55-.45-1-1-1s-1 .45-1 1v4h-2v6h6v-6h-2v-4zm4 14c0 1.3.84 2.4 2 2.82v4.18h2v-4.18c1.16-.41 2-1.51 2-2.82v-2h-6v2zm-8 0c0 1.3.84 2.4 2 2.82v4.18h2v-4.18c1.16-.42 2-1.52 2-2.82v-2h-6v2zm20-10v-4c0-.55-.45-1-1-1s-1 .45-1 1v4h-2v6h6v-6h-2zm-8-4c0-.55-.45-1-1-1s-1 .45-1 1v4h-2v6h6v-6h-2v-4zm4 14c0 1.3.84 2.4 2 2.82v4.18h2v-4.18c1.16-.41 2-1.51 2-2.82v-2h-6v2z"></path></g>
+<g id="settings-input-composite"><path d="M5 2c0-.55-.45-1-1-1s-1 .45-1 1v4h-2v6h6v-6h-2v-4zm4 14c0 1.3.84 2.4 2 2.82v4.18h2v-4.18c1.16-.41 2-1.51 2-2.82v-2h-6v2zm-8 0c0 1.3.84 2.4 2 2.82v4.18h2v-4.18c1.16-.42 2-1.52 2-2.82v-2h-6v2zm20-10v-4c0-.55-.45-1-1-1s-1 .45-1 1v4h-2v6h6v-6h-2zm-8-4c0-.55-.45-1-1-1s-1 .45-1 1v4h-2v6h6v-6h-2v-4zm4 14c0 1.3.84 2.4 2 2.82v4.18h2v-4.18c1.16-.41 2-1.51 2-2.82v-2h-6v2z"></path></g>
+<g id="settings-input-hdmi"><path d="M18 7v-3c0-1.1-.9-2-2-2h-8c-1.1 0-2 .9-2 2v3h-1v6l3 6v3h8v-3l3-6v-6h-1zm-10-3h8v3h-2v-2h-1v2h-2v-2h-1v2h-2v-3z"></path></g>
+<g id="settings-input-svideo"><path d="M8 11.5c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5.67 1.5 1.5 1.5 1.5-.67 1.5-1.5zm7-5c0-.83-.67-1.5-1.5-1.5h-3c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5zm-6.5 8.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm3.5-14c-6.07 0-11 4.93-11 11s4.93 11 11 11 11-4.93 11-11-4.93-11-11-11zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9zm5.5-11c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm-2 5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"></path></g>
+<g id="settings-overscan"><path d="M12.01 5.5l-2.01 2.5h4l-1.99-2.5zm5.99 4.5v4l2.5-1.99-2.5-2.01zm-12 0l-2.5 2.01 2.5 1.99v-4zm8 6h-4l2.01 2.5 1.99-2.5zm7-13h-18c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2zm0 16.01h-18v-14.02h18v14.02z"></path></g>
+<g id="settings"><path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65c-.03-.24-.24-.42-.49-.42h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zm-7.43 2.52c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"></path></g>
+<g id="settings-phone"><path d="M13 9h-2v2h2v-2zm4 0h-2v2h2v-2zm3 6.5c-1.25 0-2.45-.2-3.57-.57-.35-.11-.74-.03-1.02.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.58l2.2-2.21c.28-.27.36-.66.25-1.01-.37-1.12-.57-2.32-.57-3.57 0-.55-.45-1-1-1h-3.5c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1zm-1-6.5v2h2v-2h-2z"></path></g>
+<g id="settings-power"><path d="M7 24h2v-2h-2v2zm4 0h2v-2h-2v2zm2-22h-2v10h2v-10zm3.56 2.44l-1.45 1.45c1.73 1.05 2.89 2.94 2.89 5.11 0 3.31-2.69 6-6 6s-6-2.69-6-6c0-2.17 1.16-4.06 2.88-5.12l-1.44-1.44c-2.08 1.44-3.44 3.84-3.44 6.56 0 4.42 3.58 8 8 8s8-3.58 8-8c0-2.72-1.36-5.12-3.44-6.56zm-1.56 19.56h2v-2h-2v2z"></path></g>
+<g id="settings-remote"><path d="M15 9h-6c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-12c0-.55-.45-1-1-1zm-3 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm-4.95-8.95l1.41 1.41c.91-.9 2.16-1.46 3.54-1.46s2.63.56 3.54 1.46l1.41-1.41c-1.27-1.27-3.02-2.05-4.95-2.05s-3.68.78-4.95 2.05zm4.95-6.05c-3.04 0-5.79 1.23-7.78 3.22l1.41 1.41c1.63-1.62 3.88-2.63 6.37-2.63s4.74 1.01 6.36 2.64l1.41-1.41c-1.98-2-4.73-3.23-7.77-3.23z"></path></g>
+<g id="settings-voice"><path d="M7 24h2v-2h-2v2zm5-11c1.66 0 2.99-1.34 2.99-3l.01-6c0-1.66-1.34-3-3-3s-3 1.34-3 3v6c0 1.66 1.34 3 3 3zm-1 11h2v-2h-2v2zm4 0h2v-2h-2v2zm4-14h-1.7c0 3-2.54 5.1-5.3 5.1s-5.3-2.1-5.3-5.1h-1.7c0 3.41 2.72 6.23 6 6.72v3.28h2v-3.28c3.28-.49 6-3.31 6-6.72z"></path></g>
+<g id="shop"><path d="M16 6v-2c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2h-6v13c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2v-13h-6zm-6-2h4v2h-4v-2zm-1 14v-9l7.5 4-7.5 5z"></path></g>
+<g id="shopping-basket"><path d="M17.21 9l-4.38-6.56c-.19-.28-.51-.42-.83-.42-.32 0-.64.14-.83.43l-4.38 6.55h-4.79c-.55 0-1 .45-1 1 0 .09.01.18.04.27l2.54 9.27c.23.84 1 1.46 1.92 1.46h13c.92 0 1.69-.62 1.93-1.46l2.54-9.27.03-.27c0-.55-.45-1-1-1h-4.79zm-8.21 0l3-4.4 3 4.4h-6zm3 8c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"></path></g>
+<g id="shopping-cart"><path d="M7 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zm-6-16v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2h-11.58c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1h-14.79l-.94-2h-3.27zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"></path></g>
+<g id="shop-two"><path d="M3 9h-2v11c0 1.11.89 2 2 2h14c1.11 0 2-.89 2-2h-16v-11zm15-4v-2c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2h-5v11c0 1.11.89 2 2 2h14c1.11 0 2-.89 2-2v-11h-5zm-6-2h4v2h-4v-2zm0 12v-7l5.5 3-5.5 4z"></path></g>
+<g id="sort"><path d="M3 18h6v-2h-6v2zm0-12v2h18v-2h-18zm0 7h12v-2h-12v2z"></path></g>
+<g id="speaker-notes"><path d="M20 2h-16c-1.1 0-1.99.9-1.99 2l-.01 18 4-4h14c1.1 0 2-.9 2-2v-12c0-1.1-.9-2-2-2zm-12 12h-2v-2h2v2zm0-3h-2v-2h2v2zm0-3h-2v-2h2v2zm7 6h-5v-2h5v2zm3-3h-8v-2h8v2zm0-3h-8v-2h8v2z"></path></g>
+<g id="spellcheck"><path d="M12.45 16h2.09l-5.11-13h-1.86l-5.11 13h2.09l1.12-3h5.64l1.14 3zm-6.02-5l2.07-5.52 2.07 5.52h-4.14zm15.16.59l-8.09 8.09-3.67-3.68-1.41 1.41 5.09 5.09 9.49-9.5-1.41-1.41z"></path></g>
+<g id="star-half"><path d="M22 9.74l-7.19-.62L12 2.5 9.19 9.13 2 9.74l5.46 4.73-1.64 7.03L12 17.77l6.18 3.73-1.63-7.03L22 9.74zM12 15.9V6.6l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.9z"></path></g>
+<g id="star-outline"><path d="M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z"></path></g>
+<g id="star"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></g>
+<g id="star-rate"><path d="M12 14.3l3.71 2.7-1.42-4.36 3.71-2.64h-4.55l-1.45-4.5-1.45 4.5h-4.55l3.71 2.64-1.42 4.36z"></path></g>
+<g id="stars"><path d="M11.99 2c-5.52 0-9.99 4.48-9.99 10s4.47 10 9.99 10c5.53 0 10.01-4.48 10.01-10s-4.48-10-10.01-10zm4.24 16l-4.23-2.55-4.23 2.55 1.12-4.81-3.73-3.23 4.92-.42 1.92-4.54 1.92 4.53 4.92.42-3.73 3.23 1.12 4.82z"></path></g>
+<g id="store"><path d="M20 4h-16v2h16v-2zm1 10v-2l-1-5h-16l-1 5v2h1v6h10v-6h4v6h2v-6h1zm-9 4h-6v-4h6v4z"></path></g>
+<g id="subject"><path d="M14 17h-10v2h10v-2zm6-8h-16v2h16v-2zm-16 6h16v-2h-16v2zm0-10v2h16v-2h-16z"></path></g>
+<g id="supervisor-account"><circle cx="12" cy="13.49" r="1.5"></circle><path d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm0 2.5c1.24 0 2.25 1.01 2.25 2.25s-1.01 2.25-2.25 2.25-2.25-1.01-2.25-2.25 1.01-2.25 2.25-2.25zm5 10.56v2.5c-.45.41-.96.77-1.5 1.05v-.68c0-.34-.17-.65-.46-.92-.65-.62-1.89-1.02-3.04-1.02-.96 0-1.96.28-2.65.73l-.17.12-.21.17c.78.47 1.63.72 2.54.82l1.33.15c.37.04.66.36.66.75 0 .29-.16.53-.4.66-.28.15-.64.09-.95.09-.35 0-.69-.01-1.03-.05-.5-.06-.99-.17-1.46-.33-.49-.16-.97-.38-1.42-.64-.22-.13-.44-.27-.65-.43l-.31-.24c-.04-.02-.28-.18-.28-.23v-4.28c0-1.58 2.63-2.78 5-2.78s5 1.2 5 2.78v1.78z"></path></g>
+<g id="swap-horiz"><path d="M6.99 11l-3.99 4 3.99 4v-3h7.01v-2h-7.01v-3zm14.01-2l-3.99-4v3h-7.01v2h7.01v3l3.99-4z"></path></g>
+<g id="swap-vert-circle"><path d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm-5.5 7l3.5-3.5 3.5 3.5h-2.5v4h-2v-4h-2.5zm11 6l-3.5 3.5-3.5-3.5h2.5v-4h2v4h2.5z"></path></g>
+<g id="swap-vert"><path d="M16 17.01v-7.01h-2v7.01h-3l4 3.99 4-3.99h-3zm-7-14.01l-4 3.99h3v7.01h2v-7.01h3l-4-3.99z"></path></g>
+<g id="system-update-tv"><path d="M12 16.5l4-4h-3v-9h-2v9h-3l4 4zm9-13h-6v1.99h6v14.03h-18v-14.03h6v-1.99h-6c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2z"></path></g>
+<g id="tab"><path d="M21 3h-18c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2zm0 16h-18v-14h10v4h8v10z"></path></g>
+<g id="tab-unselected"><path d="M1 9h2v-2h-2v2zm0 4h2v-2h-2v2zm0-8h2v-2c-1.1 0-2 .9-2 2zm8 16h2v-2h-2v2zm-8-4h2v-2h-2v2zm2 4v-2h-2c0 1.1.9 2 2 2zm18-18h-8v6h10v-4c0-1.1-.9-2-2-2zm0 14h2v-2h-2v2zm-12-12h2v-2h-2v2zm-4 16h2v-2h-2v2zm0-16h2v-2h-2v2zm16 16c1.1 0 2-.9 2-2h-2v2zm0-8h2v-2h-2v2zm-8 8h2v-2h-2v2zm4 0h2v-2h-2v2z"></path></g>
+<g id="text-format"><path d="M5 17v2h14v-2h-14zm4.5-4.2h5l.9 2.2h2.1l-4.75-11h-1.5l-4.75 11h2.1l.9-2.2zm2.5-6.82l1.87 5.02h-3.74l1.87-5.02z"></path></g>
+<g id="theaters"><path d="M18 3v2h-2v-2h-8v2h-2v-2h-2v18h2v-2h2v2h8v-2h2v2h2v-18h-2zm-10 14h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2v-2h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2v-2h2v2z"></path></g>
+<g id="thumb-down"><path d="M15 3h-9c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v1.91l.01.01-.01.08c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06l1.06 1.05 6.59-6.59c.36-.36.58-.86.58-1.41v-10c0-1.1-.9-2-2-2zm4 0v12h4v-12h-4z"></path></g>
+<g id="thumbs-up-down"><path d="M12 6c0-.55-.45-1-1-1h-5.18l.66-3.18.02-.23c0-.31-.13-.59-.33-.8l-.79-.79-4.94 4.94c-.27.27-.44.65-.44 1.06v6.5c0 .83.67 1.5 1.5 1.5h6.75c.62 0 1.15-.38 1.38-.91l2.26-5.29c.07-.17.11-.36.11-.55v-1.25zm10.5 4h-6.75c-.62 0-1.15.38-1.38.91l-2.26 5.29c-.07.17-.11.36-.11.55v1.25c0 .55.45 1 1 1h5.18l-.66 3.18-.02.24c0 .31.13.59.33.8l.79.78 4.94-4.94c.27-.27.44-.65.44-1.06v-6.5c0-.83-.67-1.5-1.5-1.5z"></path></g>
+<g id="thumb-up"><path d="M1 21h4v-12h-4v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06l-1.06-1.05-6.58 6.59c-.37.36-.59.86-.59 1.41v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-1.91l-.01-.01.01-.08z"></path></g>
+<g id="toc"><path d="M3 9h14v-2h-14v2zm0 4h14v-2h-14v2zm0 4h14v-2h-14v2zm16 0h2v-2h-2v2zm0-10v2h2v-2h-2zm0 6h2v-2h-2v2z"></path></g>
+<g id="today"><path d="M19 3h-1v-2h-2v2h-8v-2h-2v2h-1c-1.11 0-1.99.9-1.99 2l-.01 14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2zm0 16h-14v-11h14v11zm-12-9h5v5h-5z"></path></g>
+<g id="track-changes"><path d="M19.07 4.93l-1.41 1.41c1.44 1.45 2.34 3.45 2.34 5.66 0 4.42-3.58 8-8 8s-8-3.58-8-8c0-4.08 3.05-7.44 7-7.93v2.02c-2.84.48-5 2.94-5 5.91 0 3.31 2.69 6 6 6s6-2.69 6-6c0-1.66-.67-3.16-1.76-4.24l-1.41 1.41c.72.73 1.17 1.73 1.17 2.83 0 2.21-1.79 4-4 4s-4-1.79-4-4c0-1.86 1.28-3.41 3-3.86v2.14c-.6.35-1 .98-1 1.72 0 1.1.9 2 2 2s2-.9 2-2c0-.74-.4-1.38-1-1.72v-8.28h-1c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10c0-2.76-1.12-5.26-2.93-7.07z"></path></g>
+<g id="translate"><path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53h2.93v-2h-7v-2h-2v2h-7v1.99h11.17c-.67 1.93-1.73 3.76-3.17 5.36-.93-1.03-1.7-2.16-2.31-3.35h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02 1.42 1.42 5-5 3.11 3.11.76-2.04zm5.63-5.07h-2l-4.5 12h2l1.12-3h4.75l1.13 3h2l-4.5-12zm-2.62 7l1.62-4.33 1.62 4.33h-3.24z"></path></g>
+<g id="trending-down"><path d="M16 18l2.29-2.29-4.88-4.88-4 4-7.41-7.42 1.41-1.41 6 6 4-4 6.3 6.29 2.29-2.29v6z"></path></g>
+<g id="trending-neutral"><path d="M22 12l-4-4v3h-15v2h15v3z"></path></g>
+<g id="trending-up"><path d="M16 6l2.29 2.29-4.88 4.88-4-4-7.41 7.42 1.41 1.41 6-6 4 4 6.3-6.29 2.29 2.29v-6z"></path></g>
+<g id="turned-in-not"><path d="M17 3h-10c-1.1 0-1.99.9-1.99 2l-.01 16 7-3 7 3v-16c0-1.1-.9-2-2-2zm0 15l-5-2.18-5 2.18v-13h10v13z"></path></g>
+<g id="turned-in"><path d="M17 3h-10c-1.1 0-1.99.9-1.99 2l-.01 16 7-3 7 3v-16c0-1.1-.9-2-2-2z"></path></g>
+<g id="undo"><path d="M12.5 8c-2.65 0-5.05.99-6.9 2.6l-3.6-3.6v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78c-1.39-4.19-5.32-7.22-9.97-7.22z"></path></g>
+<g id="unfold-less"><path d="M7.41 18.59l1.42 1.41 3.17-3.17 3.17 3.17 1.41-1.41-4.58-4.59-4.59 4.59zm9.18-13.18l-1.42-1.41-3.17 3.17-3.17-3.17-1.42 1.41 4.59 4.59 4.59-4.59z"></path></g>
+<g id="unfold-more"><path d="M12 5.83l3.17 3.17 1.41-1.41-4.58-4.59-4.59 4.59 1.42 1.41 3.17-3.17zm0 12.34l-3.17-3.17-1.41 1.41 4.58 4.59 4.59-4.59-1.42-1.41-3.17 3.17z"></path></g>
+<g id="verified-user"><path d="M12 1l-9 4v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12v-6l-9-4zm-2 16l-4-4 1.41-1.41 2.59 2.58 6.59-6.59 1.41 1.42-8 8z"></path></g>
+<g id="view-agenda"><path d="M20 13h-17c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h17c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zm0-10h-17c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h17c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1z"></path></g>
+<g id="view-array"><path d="M4 18h3v-13h-3v13zm14-13v13h3v-13h-3zm-10 13h9v-13h-9v13z"></path></g>
+<g id="view-carousel"><path d="M7 19h10v-15h-10v15zm-5-2h4v-11h-4v11zm16-11v11h4v-11h-4z"></path></g>
+<g id="view-column"><path d="M10 18h5v-13h-5v13zm-6 0h5v-13h-5v13zm12-13v13h5v-13h-5z"></path></g>
+<g id="view-day"><path d="M2 21h19v-3h-19v3zm18-13h-17c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h17c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zm-18-5v3h19v-3h-19z"></path></g>
+<g id="view-headline"><path d="M4 15h17v-2h-17v2zm0 4h17v-2h-17v2zm0-8h17v-2h-17v2zm0-6v2h17v-2h-17z"></path></g>
+<g id="view-list"><path d="M4 14h4v-4h-4v4zm0 5h4v-4h-4v4zm0-10h4v-4h-4v4zm5 5h12v-4h-12v4zm0 5h12v-4h-12v4zm0-14v4h12v-4h-12z"></path></g>
+<g id="view-module"><path d="M4 11h5v-6h-5v6zm0 7h5v-6h-5v6zm6 0h5v-6h-5v6zm6 0h5v-6h-5v6zm-6-7h5v-6h-5v6zm6-6v6h5v-6h-5z"></path></g>
+<g id="view-quilt"><path d="M10 18h5v-6h-5v6zm-6 0h5v-13h-5v13zm12 0h5v-6h-5v6zm-6-13v6h11v-6h-11z"></path></g>
+<g id="view-stream"><path d="M4 18h17v-6h-17v6zm0-13v6h17v-6h-17z"></path></g>
+<g id="view-week"><path d="M6 5h-3c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-12c0-.55-.45-1-1-1zm14 0h-3c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-12c0-.55-.45-1-1-1zm-7 0h-3c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-12c0-.55-.45-1-1-1z"></path></g>
+<g id="visibility-off"><path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16c.57-.23 1.18-.36 1.83-.36zm-10-2.73l2.28 2.28.46.46c-1.66 1.29-2.96 3.01-3.74 4.99 1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42 2.93 2.92 1.27-1.27-17.73-17.73-1.27 1.27zm5.53 5.53l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z"></path></g>
+<g id="visibility"><path d="M12 4.5c-5 0-9.27 3.11-11 7.5 1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"></path></g>
+<g id="wallet-giftcard"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68c-.54-.8-1.45-1.34-2.5-1.34-1.66 0-3 1.34-3 3 0 .35.07.69.18 1h-2.18c-1.11 0-1.99.89-1.99 2l-.01 11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2v-11c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-6 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15h-16v-2h16v2zm0-5h-16v-6h5.08l-2.08 2.83 1.62 1.17 2.38-3.24 1-1.36 1 1.36 2.38 3.24 1.62-1.17-2.08-2.83h5.08v6z"></path></g>
+<g id="wallet-membership"><path d="M20 2h-16c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h4v5l4-2 4 2v-5h4c1.11 0 2-.89 2-2v-11c0-1.11-.89-2-2-2zm0 13h-16v-2h16v2zm0-5h-16v-6h16v6z"></path></g>
+<g id="wallet-travel"><path d="M20 6h-3v-2c0-1.11-.89-2-2-2h-6c-1.11 0-2 .89-2 2v2h-3c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2v-11c0-1.11-.89-2-2-2zm-11-2h6v2h-6v-2zm11 15h-16v-2h16v2zm0-5h-16v-6h3v2h2v-2h6v2h2v-2h3v6z"></path></g>
+<g id="warning"><path d="M1 21h22l-11-19-11 19zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></g>
+<g id="work"><path d="M24 0v24h-24v-24h24m1-1h-26v26h26v-26z"></path><path d="M20 6h-4v-2c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2h-4c-1.11 0-1.99.89-1.99 2l-.01 11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2v-11c0-1.11-.89-2-2-2zm-6 0h-4v-2h4v2z"></path></g>
+</defs></svg>
+</core-iconset-svg>
+
+<polymer-element name="core-style" hidden="" assetpath="bower_components/core-style/">
+<script>
+(function() {
+
+window.CoreStyle = window.CoreStyle || {
+  g: {},
+  list: {},
+  refMap: {}
+};
+
+Polymer('core-style', {
+  /**
+   * The `id` property should be set if the `core-style` is a producer
+   * of styles. In this case, the `core-style` should have text content
+   * that is cssText.
+   *
+   * @attribute id
+   * @type string
+   * @default ''
+   */
+
+
+  publish: {
+    /**
+     * The `ref` property should be set if the `core-style` element is a 
+     * consumer of styles. Set it to the `id` of the desired `core-style`
+     * element.
+     *
+     * @attribute ref
+     * @type string
+     * @default ''
+     */
+    ref: ''
+  },
+
+  // static
+  g: CoreStyle.g,
+  refMap: CoreStyle.refMap,
+
+  /**
+   * The `list` is a map of all `core-style` producers stored by `id`. It 
+   * should be considered readonly. It's useful for nesting one `core-style`
+   * inside another.
+   *
+   * @attribute list
+   * @type object (readonly)
+   * @default {map of all `core-style` producers}
+   */
+  list: CoreStyle.list,
+
+  // if we have an id, we provide style
+  // if we have a ref, we consume/require style
+  ready: function() {
+    if (this.id) {
+      this.provide();
+    } else {
+      this.registerRef(this.ref);
+      if (!window.ShadowDOMPolyfill) {
+        this.require();
+      }  
+    }
+  },
+
+  // can't shim until attached if using SD polyfill because need to find host
+  attached: function() {
+    if (!this.id && window.ShadowDOMPolyfill) {
+      this.require();
+    }
+  },
+
+  /****** producer stuff *******/
+
+  provide: function() {
+    this.register();
+    // we want to do this asap, especially so we can do so before definitions
+    // that use this core-style are registered.
+    if (this.textContent) {
+      this._completeProvide();
+    } else {
+      this.async(this._completeProvide);
+    }
+  },
+
+  register: function() {
+    var i = this.list[this.id];
+    if (i) {
+      if (!Array.isArray(i)) {
+        this.list[this.id] = [i];
+      }
+      this.list[this.id].push(this);
+    } else {
+      this.list[this.id] = this;  
+    }
+  },
+
+  // stamp into a shadowRoot so we can monitor dom of the bound output
+  _completeProvide: function() {
+    this.createShadowRoot();
+    this.domObserver = new MutationObserver(this.domModified.bind(this))
+        .observe(this.shadowRoot, {subtree: true, 
+        characterData: true, childList: true});
+    this.provideContent();
+  },
+
+  provideContent: function() {
+    this.ensureTemplate();
+    this.shadowRoot.textContent = '';
+    this.shadowRoot.appendChild(this.instanceTemplate(this.template));
+    this.cssText = this.shadowRoot.textContent;
+  },
+
+  ensureTemplate: function() {
+    if (!this.template) {
+      this.template = this.querySelector('template:not([repeat]):not([bind])');
+      // move content into the template
+      if (!this.template) {
+        this.template = document.createElement('template');
+        var n = this.firstChild;
+        while (n) {
+          this.template.content.appendChild(n.cloneNode(true));
+          n = n.nextSibling;
+        }
+      }
+    }
+  },
+
+  domModified: function() {
+    this.cssText = this.shadowRoot.textContent;
+    this.notify();
+  },
+
+  // notify instances that reference this element
+  notify: function() {
+    var s$ = this.refMap[this.id];
+    if (s$) {
+      for (var i=0, s; (s=s$[i]); i++) {
+        s.require();
+      }
+    }
+  },
+
+  /****** consumer stuff *******/
+
+  registerRef: function(ref) {
+    //console.log('register', ref);
+    this.refMap[this.ref] = this.refMap[this.ref] || [];
+    this.refMap[this.ref].push(this);
+  },
+
+  applyRef: function(ref) {
+    this.ref = ref;
+    this.registerRef(this.ref);
+    this.require();
+  },
+
+  require: function() {
+    var cssText = this.cssTextForRef(this.ref);
+    //console.log('require', this.ref, cssText);
+    if (cssText) {
+      this.ensureStyleElement();
+      // do nothing if cssText has not changed
+      if (this.styleElement._cssText === cssText) {
+        return;
+      }
+      this.styleElement._cssText = cssText;
+      if (window.ShadowDOMPolyfill) {
+        this.styleElement.textContent = cssText;
+        cssText = WebComponents.ShadowCSS.shimStyle(this.styleElement,
+            this.getScopeSelector());
+      }
+      this.styleElement.textContent = cssText;
+    }
+  },
+
+  cssTextForRef: function(ref) {
+    var s$ = this.byId(ref);
+    var cssText = '';
+    if (s$) {
+      if (Array.isArray(s$)) {
+        var p = [];
+        for (var i=0, l=s$.length, s; (i<l) && (s=s$[i]); i++) {
+          p.push(s.cssText);
+        }
+        cssText = p.join('\n\n');
+      } else {
+        cssText = s$.cssText;
+      }
+    }
+    if (s$ && !cssText) {
+      console.warn('No styles provided for ref:', ref);
+    }
+    return cssText;
+  },
+
+  byId: function(id) {
+    return this.list[id];
+  },
+
+  ensureStyleElement: function() {
+    if (!this.styleElement) {
+      this.styleElement = window.ShadowDOMPolyfill ? 
+          this.makeShimStyle() :
+          this.makeRootStyle();
+    }
+    if (!this.styleElement) {
+      console.warn(this.localName, 'could not setup style.');
+    }
+  },
+
+  makeRootStyle: function() {
+    var style = document.createElement('style');
+    this.appendChild(style);
+    return style;
+  },
+
+  makeShimStyle: function() {
+    var host = this.findHost(this);
+    if (host) {
+      var name = host.localName;
+      var style = document.querySelector('style[' + name + '=' + this.ref +']');
+      if (!style) {
+        style = document.createElement('style');
+        style.setAttribute(name, this.ref);
+        document.head.appendChild(style);
+      }
+      return style;
+    }
+  },
+
+  getScopeSelector: function() {
+    if (!this._scopeSelector) {
+      var selector = '', host = this.findHost(this);
+      if (host) {
+        var typeExtension = host.hasAttribute('is');
+        var name = typeExtension ? host.getAttribute('is') : host.localName;
+        selector = WebComponents.ShadowCSS.makeScopeSelector(name, 
+            typeExtension);
+      }
+      this._scopeSelector = selector;
+    }
+    return this._scopeSelector;
+  },
+
+  findHost: function(node) {
+    while (node.parentNode) {
+      node = node.parentNode;
+    }
+    return node.host || wrap(document.documentElement);
+  },
+
+  /* filters! */
+  // TODO(dfreedm): add more filters!
+
+  cycle: function(rgb, amount) {
+    if (rgb.match('#')) {
+      var o = this.hexToRgb(rgb);
+      if (!o) {
+        return rgb;
+      }
+      rgb = 'rgb(' + o.r + ',' + o.b + ',' + o.g + ')';
+    }
+
+    function cycleChannel(v) {
+      return Math.abs((Number(v) - amount) % 255);
+    }
+
+    return rgb.replace(/rgb\(([^,]*),([^,]*),([^,]*)\)/, function(m, a, b, c) {
+      return 'rgb(' + cycleChannel(a) + ',' + cycleChannel(b) + ', ' 
+          + cycleChannel(c) + ')';
+    });
+  },
+
+  hexToRgb: function(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
+  }
+
+});
+
+
+})();
+</script>
+</polymer-element>
+<core-style id="paper-input-decorator">
+
+.label-text,
+.error {
+  color: {{g.paperInput.labelColor}};
+}
+
+::-webkit-input-placeholder {
+  color: {{g.paperInput.labelColor}};
+}
+
+::-moz-placeholder {
+  color: {{g.paperInput.labelColor}};
+}
+
+:-ms-input-placeholder {
+  color: {{g.paperInput.labelColor}};
+}
+
+.unfocused-underline {
+  background-color: {{g.paperInput.labelColor}};
+}
+
+:host([focused]) .floated-label .label-text {
+  color: {{g.paperInput.focusedColor}};
+}
+
+.focused-underline {
+  background-color: {{g.paperInput.focusedColor}};
+}
+
+:host(.invalid) .floated-label .label-text,
+.error {
+  color: {{g.paperInput.invalidColor}};
+}
+
+:host(.invalid) .unfocused-underline,
+:host(.invalid) .focused-underline {
+  background-color: {{g.paperInput.invalidColor}};
+}
+
+</core-style>
+
+<polymer-element name="paper-input-decorator" layout="" vertical="" on-transitionend="{{transitionEndAction}}" on-webkittransitionend="{{transitionEndAction}}" on-input="{{inputAction}}" on-down="{{downAction}}" assetpath="bower_components/paper-input/">
+
+  <template>
+
+    <style>/*
+ * @license
+ * Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+ */
+
+:host {
+  display: inline-block;
+  outline: none;
+  text-align: inherit;
+  padding: 0.75em 0;
+}
+
+polyfill-next-selector {
+  content: '.input-body > :not(.label)';
+}
+::content > *,
+::content > input[is="core-input"] {
+  padding: 0;
+  margin: 0.5em 0 0.25em;
+  width: 100%;
+}
+
+polyfill-next-selector {
+  content: 'input, textarea';
+}
+::content input,
+::content input[is=core-input],
+::content textarea {
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+polyfill-next-selector {
+  content: ':invalid';
+}
+::content input:invalid,
+::content textarea:invalid {
+  box-shadow: none;
+}
+
+polyfill-next-selector {
+  content: 'textarea';
+}
+::content textarea {
+  resize: none;
+}
+
+[invisible] {
+  visibility: hidden;
+}
+
+[animated] {
+  visibility: visible !important;
+  -webkit-transition: -webkit-transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.floated-label {
+  font-size: 0.75em;
+  background: transparent;
+  white-space: nowrap;
+}
+
+.mirror-text {
+  padding: 0.5em 0 0.25em;
+  max-width: 100%;
+  white-space: nowrap;
+}
+
+:host([multiline]) .mirror-text {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.label {
+  padding: 0.5em 0 0.25em;
+  background: transparent;
+  pointer-events: none;
+}
+
+.label-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  max-width: 100%;
+  -moz-transform-origin: 0% 0%;
+  -webkit-transform-origin: 0% 0%;
+  transform-origin: 0% 0%;
+}
+
+.underline {
+  height: 0px;
+  overflow: visible;
+}
+
+:host([disabled]) .underline {
+  border-bottom: 1px dashed #757575;
+}
+
+.unfocused-underline {
+  height: 1px;
+}
+
+.focused-underline {
+  height: 2px;
+  -webkit-transform: none;
+  transform: none;
+}
+
+.focused-underline[invisible] {
+  -webkit-transform: scale3d(0,1,1);
+  transform: scale3d(0,1,1);
+}
+
+.error-text {
+  font-size: 0.75em;
+  padding: 0.5em 0;
+}
+
+.error-icon {
+  height: 20px;
+  width: 20px;
+}
+</style>
+    <core-style ref="paper-input-decorator"></core-style>
+
+    <div class="floated-label" aria-hidden="true" hidden?="{{!floatingLabel}}" invisible?="{{!floatingLabelVisible || labelAnimated}}">
+      <!-- needed for floating label animation measurement -->
+      <span id="floatedLabelText" class="label-text">{{label}}</span>
+    </div>
+
+    <div class="input-body" flex="" auto="" relative="">
+
+      <div class="label" fit="" invisible="" aria-hidden="true">
+        <!-- needed for floating label animation measurement -->
+        <span id="labelText" class="label-text" invisible?="{{!_labelVisible}}" animated?="{{labelAnimated}}">{{label}}</span>
+      </div>
+
+      <content></content>
+
+    </div>
+
+    <div id="underline" class="underline" relative="">
+      <div class="unfocused-underline" fit="" invisible?="{{disabled}}"></div>
+      <div id="focusedUnderline" class="focused-underline" fit="" invisible?="{{!focused}}" animated?="{{underlineAnimated}}"></div>
+    </div>
+
+    <div class="error" layout="" horizontal="" center="" hidden?="{{!isInvalid}}">
+      <div class="error-text" flex="" auto="" role="alert" aria-hidden="{{!isInvalid}}">{{error}}</div>
+      <core-icon class="error-icon" icon="warning"></core-icon>
+    </div>
+
+  </template>
+
+  <script>
+
+  (function() {
+
+    var paperInput = CoreStyle.g.paperInput = CoreStyle.g.paperInput || {};
+
+    paperInput.labelColor = '#757575';
+    paperInput.focusedColor = '#4059a9';
+    paperInput.invalidColor = '#d34336';
+
+    Polymer('paper-input-decorator',{
+
+      publish: {
+
+        /**
+         * The label for this input. It normally appears as grey text inside
+         * the text input and disappears once the user enters text.
+         *
+         * @attribute label
+         * @type string
+         * @default ''
+         */
+        label: '',
+
+        /**
+         * If true, the label will "float" above the text input once the
+         * user enters text instead of disappearing.
+         *
+         * @attribute floatingLabel
+         * @type boolean
+         * @default false
+         */
+        floatingLabel: false,
+
+        /**
+         * Set to true to style the element as disabled.
+         *
+         * @attribute disabled
+         * @type boolean
+         * @default false
+         */
+        disabled: {value: false, reflect: true},
+
+        /**
+         * Use this property to override the automatic label visibility.
+         * If this property is set to `true` or `false`, the label visibility
+         * will respect this value instead of be based on whether there is
+         * a non-null value in the input.
+         *
+         * @attribute labelVisible
+         * @type boolean
+         * @default false
+         */
+        labelVisible: null,
+
+        /**
+         * Set this property to true to show the error message.
+         *
+         * @attribute isInvalid
+         * @type boolean
+         * @default false
+         */
+        isInvalid: false,
+
+        /**
+         * The message to display if the input value fails validation. If this
+         * is unset or the empty string, a default message is displayed depending
+         * on the type of validation error.
+         *
+         * @attribute error
+         * @type string
+         */
+        error: '',
+
+        focused: {value: false, reflect: true}
+
+      },
+
+      computed: {
+        floatingLabelVisible: 'floatingLabel && !_labelVisible',
+        _labelVisible: '(labelVisible === true || labelVisible === false) ? labelVisible : _autoLabelVisible'
+      },
+
+      ready: function() {
+        // Delegate focus/blur events
+        Polymer.addEventListener(this, 'focus', this.focusAction.bind(this), true);
+        Polymer.addEventListener(this, 'blur', this.blurAction.bind(this), true);
+      },
+
+      attached: function() {
+        this.input = this.querySelector('input,textarea');
+
+        this.mo = new MutationObserver(function() {
+          this.input = this.querySelector('input,textarea');
+        }.bind(this));
+        this.mo.observe(this, {childList: true});
+      },
+
+      detached: function() {
+        this.mo.disconnect();
+        this.mo = null;
+      },
+
+      prepareLabelTransform: function() {
+        var toRect = this.$.floatedLabelText.getBoundingClientRect();
+        var fromRect = this.$.labelText.getBoundingClientRect();
+        if (toRect.width !== 0) {
+          var sy = toRect.height / fromRect.height;
+          this.$.labelText.cachedTransform =
+            'scale3d(' + (toRect.width / fromRect.width) + ',' + sy + ',1) ' +
+            'translate3d(0,' + (toRect.top - fromRect.top) / sy + 'px,0)';
+        }
+      },
+
+      animateFloatingLabel: function() {
+        if (!this.floatingLabel || this.labelAnimated) {
+          return false;
+        }
+
+        if (!this.$.labelText.cachedTransform) {
+          this.prepareLabelTransform();
+        }
+
+        // If there's still no cached transform, the input is invisible so don't
+        // do the animation.
+        if (!this.$.labelText.cachedTransform) {
+          return false;
+        }
+
+        this.labelAnimated = true;
+        // Handle interrupted animation
+        this.async(function() {
+          this.transitionEndAction();
+        }, null, 250);
+
+        if (this._labelVisible) {
+          // Handle if the label started out floating
+          if (!this.$.labelText.style.webkitTransform && !this.$.labelText.style.transform) {
+            this.$.labelText.style.webkitTransform = this.$.labelText.cachedTransform;
+            this.$.labelText.style.transform = this.$.labelText.cachedTransform;
+            this.$.labelText.offsetTop;
+          }
+          this.$.labelText.style.webkitTransform = '';
+          this.$.labelText.style.transform = '';
+        } else {
+          this.$.labelText.style.webkitTransform = this.$.labelText.cachedTransform;
+          this.$.labelText.style.transform = this.$.labelText.cachedTransform;
+          this.input.placeholder = '';
+        }
+
+        return true;
+      },
+
+      _labelVisibleChanged: function(old) {
+        // do not do the animation on first render
+        if (old !== undefined) {
+          if (!this.animateFloatingLabel()) {
+            this.updateInputLabel(this.input, this.label);
+          }
+        }
+      },
+
+      labelVisibleChanged: function() {
+        if (this.labelVisible === 'true') {
+          this.labelVisible = true;
+        } else if (this.labelVisible === 'false') {
+          this.labelVisible = false;
+        }
+      },
+
+      labelChanged: function() {
+        if (this.input) {
+          this.updateInputLabel(this.input, this.label);
+        }
+      },
+
+      isInvalidChanged: function() {
+        this.classList.toggle('invalid', this.isInvalid);
+      },
+
+      focusedChanged: function() {
+        this.updateLabelVisibility(this.input && this.input.value);
+      },
+
+      inputChanged: function(old) {
+        if (this.input) {
+          this.updateLabelVisibility(this.input.value);
+          this.updateInputLabel(this.input, this.label);
+        }
+        if (old) {
+          this.updateInputLabel(old, '');
+        }
+      },
+
+      focusAction: function() {
+        this.focused = true;
+      },
+
+      blurAction: function(e) {
+        this.focused = false;
+      },
+
+      /**
+       * Updates the label visibility based on a value. This is handled automatically
+       * if the user is typing, but if you imperatively set the input value you need
+       * to call this function.
+       *
+       * @method updateLabelVisibility
+       * @param {string} value
+       */
+      updateLabelVisibility: function(value) {
+        var v = (value !== null && value !== undefined) ? String(value) : value;
+        this._autoLabelVisible = (!this.focused && !v) || (!this.floatingLabel && !v);
+      },
+
+      updateInputLabel: function(input, label) {
+        if (this._labelVisible) {
+          this.input.placeholder = this.label;
+        } else {
+          this.input.placeholder = '';
+        }
+        if (label) {
+          input.setAttribute('aria-label', label);
+        } else {
+          input.removeAttribute('aria-label');
+        }
+      },
+
+      inputAction: function(e) {
+        this.updateLabelVisibility(e.target.value);
+      },
+
+      downAction: function(e) {
+        if (this.disabled) {
+          return;
+        }
+
+        if (this.focused) {
+          return;
+        }
+
+        if (this.input) {
+          this.input.focus();
+          e.preventDefault();
+        }
+
+        // The underline spills from the tap location
+        var rect = this.$.underline.getBoundingClientRect();
+        var right = e.x - rect.left;
+        this.$.focusedUnderline.style.mozTransformOrigin = right + 'px';
+        this.$.focusedUnderline.style.webkitTransformOrigin = right + 'px ';
+        this.$.focusedUnderline.style.transformOriginX = right + 'px';
+
+        // Animations only run when the user interacts with the input
+        this.underlineAnimated = true;
+
+        // Handle interrupted animation
+        this.async(function() {
+          this.transitionEndAction();
+        }, null, 250);
+      },
+
+      transitionEndAction: function() {
+        this.underlineAnimated = false;
+        this.labelAnimated = false;
+        if (this._labelVisible) {
+          this.input.placeholder = this.label;
+        }
+      }
+
+    });
+
+  }());
+
+  </script>
+
+</polymer-element>
+<polymer-element name="paper-input" assetpath="bower_components/paper-input/">
+
+<template>
+
+  <style>
+    :host {
+      display: inline-block;
+    }
+  </style>
+
+  <paper-input-decorator id="decorator" label="{{label}}" floatinglabel="{{floatingLabel}}" value="{{value}}" disabled?="{{disabled}}">
+    <input is="core-input" value="{{value}}" committedvalue="{{committedValue}}" on-change="{{changeAction}}" disabled?="{{disabled}}">
+  </paper-input-decorator>
+
+</template>
+
+<script>
+
+  Polymer('paper-input', {
+
+    publish: {
+      /**
+       * The label for this input. It normally appears as grey text inside
+       * the text input and disappears once the user enters text.
+       *
+       * @attribute label
+       * @type string
+       * @default ''
+       */
+      label: '',
+
+      /**
+       * If true, the label will "float" above the text input once the
+       * user enters text instead of disappearing.
+       *
+       * @attribute floatingLabel
+       * @type boolean
+       * @default false
+       */
+      floatingLabel: false,
+
+      /**
+       * Set to true to style the element as disabled.
+       *
+       * @attribute disabled
+       * @type boolean
+       * @default false
+       */
+      disabled: {value: false, reflect: true},
+
+      value: '',
+
+      committedValue: ''
+
+    },
+
+    valueChanged: function() {
+      this.$.decorator.updateLabelVisibility(this.value);
+    },
+
+    changeAction: function(e) {
+      if (!window.ShadowDOMPolyfill) {
+        // re-fire event that does not bubble across shadow roots
+        this.fire('change', null, this);
+      }
+    }
+
+  });
+
+</script>
+
+</polymer-element>
+
+<polymer-element name="paper-shadow" assetpath="bower_components/paper-shadow/">
+
+<template>
+
+  <div id="shadow-bottom" fit="" animated?="[[animated]]" class="paper-shadow-bottom-z-[[z]]"></div>
+  <div id="shadow-top" fit="" animated?="[[animated]]" class="paper-shadow-top-z-[[z]]"></div>
+
+  <content></content>
+
+</template>
+
+<script>
+  Polymer('paper-shadow',{
+
+    publish: {
+
+      /**
+       * The z-depth of this shadow, from 0-5. Setting this property
+       * after element creation has no effect. Use `setZ()` instead.
+       *
+       * @attribute z
+       * @type number
+       * @default 1
+       */
+      z: 1,
+
+      /**
+       * Set this to true to animate the shadow when setting a new
+       * `z` value.
+       *
+       * @attribute animated
+       * @type boolean
+       * @default false
+       */
+      animated: false
+
+    },
+
+    /**
+     * Set the z-depth of the shadow. This should be used after element
+     * creation instead of setting the z property directly.
+     *
+     * @method setZ
+     * @param {Number} newZ
+     */
+    setZ: function(newZ) {
+      if (this.z !== newZ) {
+        this.$['shadow-bottom'].classList.remove('paper-shadow-bottom-z-' + this.z);
+        this.$['shadow-bottom'].classList.add('paper-shadow-bottom-z-' + newZ);
+        this.$['shadow-top'].classList.remove('paper-shadow-top-z-' + this.z);
+        this.$['shadow-top'].classList.add('paper-shadow-top-z-' + newZ);
+        this.z = newZ;
+      }
+    }
+
+  });
+</script>
+</polymer-element>
+
+
+<polymer-element name="paper-ripple" attributes="initialOpacity opacityDecayVelocity" assetpath="bower_components/paper-ripple/">
+<template>
+
+  <style>
+
+    :host {
+      display: block;
+      position: relative;
+      border-radius: inherit;
+      overflow: hidden;
+    }
+
+    :host-context([noink]) {
+      pointer-events: none;
+    }
+
+    #bg, #waves, .wave-container, .wave {
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    #bg, .wave {
+      opacity: 0;
+    }
+
+    #waves, .wave {
+      overflow: hidden;
+    }
+
+    .wave-container, .wave {
+      border-radius: 50%;
+    }
+
+    :host(.circle) #bg,
+    :host(.circle) #waves {
+      border-radius: 50%;
+    }
+
+    :host(.circle) .wave-container {
+      overflow: hidden;
+    }
+
+  </style>
+
+  <div id="bg"></div>
+  <div id="waves">
+  </div>
+
+</template>
+<script>
+
+  (function() {
+
+    var waveMaxRadius = 150;
+    //
+    // INK EQUATIONS
+    //
+    function waveRadiusFn(touchDownMs, touchUpMs, anim) {
+      // Convert from ms to s
+      var touchDown = touchDownMs / 1000;
+      var touchUp = touchUpMs / 1000;
+      var totalElapsed = touchDown + touchUp;
+      var ww = anim.width, hh = anim.height;
+      // use diagonal size of container to avoid floating point math sadness
+      var waveRadius = Math.min(Math.sqrt(ww * ww + hh * hh), waveMaxRadius) * 1.1 + 5;
+      var duration = 1.1 - .2 * (waveRadius / waveMaxRadius);
+      var tt = (totalElapsed / duration);
+
+      var size = waveRadius * (1 - Math.pow(80, -tt));
+      return Math.abs(size);
+    }
+
+    function waveOpacityFn(td, tu, anim) {
+      // Convert from ms to s.
+      var touchDown = td / 1000;
+      var touchUp = tu / 1000;
+      var totalElapsed = touchDown + touchUp;
+
+      if (tu <= 0) {  // before touch up
+        return anim.initialOpacity;
+      }
+      return Math.max(0, anim.initialOpacity - touchUp * anim.opacityDecayVelocity);
+    }
+
+    function waveOuterOpacityFn(td, tu, anim) {
+      // Convert from ms to s.
+      var touchDown = td / 1000;
+      var touchUp = tu / 1000;
+
+      // Linear increase in background opacity, capped at the opacity
+      // of the wavefront (waveOpacity).
+      var outerOpacity = touchDown * 0.3;
+      var waveOpacity = waveOpacityFn(td, tu, anim);
+      return Math.max(0, Math.min(outerOpacity, waveOpacity));
+    }
+
+    // Determines whether the wave should be completely removed.
+    function waveDidFinish(wave, radius, anim) {
+      var waveOpacity = waveOpacityFn(wave.tDown, wave.tUp, anim);
+
+      // If the wave opacity is 0 and the radius exceeds the bounds
+      // of the element, then this is finished.
+      return waveOpacity < 0.01 && radius >= Math.min(wave.maxRadius, waveMaxRadius);
+    };
+
+    function waveAtMaximum(wave, radius, anim) {
+      var waveOpacity = waveOpacityFn(wave.tDown, wave.tUp, anim);
+
+      return waveOpacity >= anim.initialOpacity && radius >= Math.min(wave.maxRadius, waveMaxRadius);
+    }
+
+    //
+    // DRAWING
+    //
+    function drawRipple(ctx, x, y, radius, innerAlpha, outerAlpha) {
+      // Only animate opacity and transform
+      if (outerAlpha !== undefined) {
+        ctx.bg.style.opacity = outerAlpha;
+      }
+      ctx.wave.style.opacity = innerAlpha;
+
+      var s = radius / (ctx.containerSize / 2);
+      var dx = x - (ctx.containerWidth / 2);
+      var dy = y - (ctx.containerHeight / 2);
+
+      ctx.wc.style.webkitTransform = 'translate3d(' + dx + 'px,' + dy + 'px,0)';
+      ctx.wc.style.transform = 'translate3d(' + dx + 'px,' + dy + 'px,0)';
+
+      // 2d transform for safari because of border-radius and overflow:hidden clipping bug.
+      // https://bugs.webkit.org/show_bug.cgi?id=98538
+      ctx.wave.style.webkitTransform = 'scale(' + s + ',' + s + ')';
+      ctx.wave.style.transform = 'scale3d(' + s + ',' + s + ',1)';
+    }
+
+    //
+    // SETUP
+    //
+    function createWave(elem) {
+      var elementStyle = window.getComputedStyle(elem);
+      var fgColor = elementStyle.color;
+
+      var inner = document.createElement('div');
+      inner.style.backgroundColor = fgColor;
+      inner.classList.add('wave');
+
+      var outer = document.createElement('div');
+      outer.classList.add('wave-container');
+      outer.appendChild(inner);
+
+      var container = elem.$.waves;
+      container.appendChild(outer);
+
+      elem.$.bg.style.backgroundColor = fgColor;
+
+      var wave = {
+        bg: elem.$.bg,
+        wc: outer,
+        wave: inner,
+        waveColor: fgColor,
+        maxRadius: 0,
+        isMouseDown: false,
+        mouseDownStart: 0.0,
+        mouseUpStart: 0.0,
+        tDown: 0,
+        tUp: 0
+      };
+      return wave;
+    }
+
+    function removeWaveFromScope(scope, wave) {
+      if (scope.waves) {
+        var pos = scope.waves.indexOf(wave);
+        scope.waves.splice(pos, 1);
+        // FIXME cache nodes
+        wave.wc.remove();
+      }
+    };
+
+    // Shortcuts.
+    var pow = Math.pow;
+    var now = Date.now;
+    if (window.performance && performance.now) {
+      now = performance.now.bind(performance);
+    }
+
+    function cssColorWithAlpha(cssColor, alpha) {
+        var parts = cssColor.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+        if (typeof alpha == 'undefined') {
+            alpha = 1;
+        }
+        if (!parts) {
+          return 'rgba(255, 255, 255, ' + alpha + ')';
+        }
+        return 'rgba(' + parts[1] + ', ' + parts[2] + ', ' + parts[3] + ', ' + alpha + ')';
+    }
+
+    function dist(p1, p2) {
+      return Math.sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2));
+    }
+
+    function distanceFromPointToFurthestCorner(point, size) {
+      var tl_d = dist(point, {x: 0, y: 0});
+      var tr_d = dist(point, {x: size.w, y: 0});
+      var bl_d = dist(point, {x: 0, y: size.h});
+      var br_d = dist(point, {x: size.w, y: size.h});
+      return Math.max(tl_d, tr_d, bl_d, br_d);
+    }
+
+    Polymer('paper-ripple', {
+
+      /**
+       * The initial opacity set on the wave.
+       *
+       * @attribute initialOpacity
+       * @type number
+       * @default 0.25
+       */
+      initialOpacity: 0.25,
+
+      /**
+       * How fast (opacity per second) the wave fades out.
+       *
+       * @attribute opacityDecayVelocity
+       * @type number
+       * @default 0.8
+       */
+      opacityDecayVelocity: 0.8,
+
+      backgroundFill: true,
+      pixelDensity: 2,
+
+      eventDelegates: {
+        down: 'downAction',
+        up: 'upAction'
+      },
+
+      ready: function() {
+        this.waves = [];
+      },
+
+      downAction: function(e) {
+        var wave = createWave(this);
+
+        this.cancelled = false;
+        wave.isMouseDown = true;
+        wave.tDown = 0.0;
+        wave.tUp = 0.0;
+        wave.mouseUpStart = 0.0;
+        wave.mouseDownStart = now();
+
+        var rect = this.getBoundingClientRect();
+        var width = rect.width;
+        var height = rect.height;
+        var touchX = e.x - rect.left;
+        var touchY = e.y - rect.top;
+
+        wave.startPosition = {x:touchX, y:touchY};
+
+        if (this.classList.contains("recenteringTouch")) {
+          wave.endPosition = {x: width / 2,  y: height / 2};
+          wave.slideDistance = dist(wave.startPosition, wave.endPosition);
+        }
+        wave.containerSize = Math.max(width, height);
+        wave.containerWidth = width;
+        wave.containerHeight = height;
+        wave.maxRadius = distanceFromPointToFurthestCorner(wave.startPosition, {w: width, h: height});
+
+        // The wave is circular so constrain its container to 1:1
+        wave.wc.style.top = (wave.containerHeight - wave.containerSize) / 2 + 'px';
+        wave.wc.style.left = (wave.containerWidth - wave.containerSize) / 2 + 'px';
+        wave.wc.style.width = wave.containerSize + 'px';
+        wave.wc.style.height = wave.containerSize + 'px';
+
+        this.waves.push(wave);
+
+        if (!this._loop) {
+          this._loop = this.animate.bind(this, {
+            width: width,
+            height: height
+          });
+          requestAnimationFrame(this._loop);
+        }
+        // else there is already a rAF
+      },
+
+      upAction: function() {
+        for (var i = 0; i < this.waves.length; i++) {
+          // Declare the next wave that has mouse down to be mouse'ed up.
+          var wave = this.waves[i];
+          if (wave.isMouseDown) {
+            wave.isMouseDown = false
+            wave.mouseUpStart = now();
+            wave.mouseDownStart = 0;
+            wave.tUp = 0.0;
+            break;
+          }
+        }
+        this._loop && requestAnimationFrame(this._loop);
+      },
+
+      cancel: function() {
+        this.cancelled = true;
+      },
+
+      animate: function(ctx) {
+        var shouldRenderNextFrame = false;
+
+        var deleteTheseWaves = [];
+        // The oldest wave's touch down duration
+        var longestTouchDownDuration = 0;
+        var longestTouchUpDuration = 0;
+        // Save the last known wave color
+        var lastWaveColor = null;
+        // wave animation values
+        var anim = {
+          initialOpacity: this.initialOpacity,
+          opacityDecayVelocity: this.opacityDecayVelocity,
+          height: ctx.height,
+          width: ctx.width
+        }
+
+        for (var i = 0; i < this.waves.length; i++) {
+          var wave = this.waves[i];
+
+          if (wave.mouseDownStart > 0) {
+            wave.tDown = now() - wave.mouseDownStart;
+          }
+          if (wave.mouseUpStart > 0) {
+            wave.tUp = now() - wave.mouseUpStart;
+          }
+
+          // Determine how long the touch has been up or down.
+          var tUp = wave.tUp;
+          var tDown = wave.tDown;
+          longestTouchDownDuration = Math.max(longestTouchDownDuration, tDown);
+          longestTouchUpDuration = Math.max(longestTouchUpDuration, tUp);
+
+          // Obtain the instantenous size and alpha of the ripple.
+          var radius = waveRadiusFn(tDown, tUp, anim);
+          var waveAlpha =  waveOpacityFn(tDown, tUp, anim);
+          var waveColor = cssColorWithAlpha(wave.waveColor, waveAlpha);
+          lastWaveColor = wave.waveColor;
+
+          // Position of the ripple.
+          var x = wave.startPosition.x;
+          var y = wave.startPosition.y;
+
+          // Ripple gravitational pull to the center of the canvas.
+          if (wave.endPosition) {
+
+            // This translates from the origin to the center of the view  based on the max dimension of
+            var translateFraction = Math.min(1, radius / wave.containerSize * 2 / Math.sqrt(2) );
+
+            x += translateFraction * (wave.endPosition.x - wave.startPosition.x);
+            y += translateFraction * (wave.endPosition.y - wave.startPosition.y);
+          }
+
+          // If we do a background fill fade too, work out the correct color.
+          var bgFillColor = null;
+          if (this.backgroundFill) {
+            var bgFillAlpha = waveOuterOpacityFn(tDown, tUp, anim);
+            bgFillColor = cssColorWithAlpha(wave.waveColor, bgFillAlpha);
+          }
+
+          // Draw the ripple.
+          drawRipple(wave, x, y, radius, waveAlpha, bgFillAlpha);
+
+          // Determine whether there is any more rendering to be done.
+          var maximumWave = waveAtMaximum(wave, radius, anim);
+          var waveDissipated = waveDidFinish(wave, radius, anim);
+          var shouldKeepWave = !waveDissipated || maximumWave;
+          // keep rendering dissipating wave when at maximum radius on upAction
+          var shouldRenderWaveAgain = wave.mouseUpStart ? !waveDissipated : !maximumWave;
+          shouldRenderNextFrame = shouldRenderNextFrame || shouldRenderWaveAgain;
+          if (!shouldKeepWave || this.cancelled) {
+            deleteTheseWaves.push(wave);
+          }
+       }
+
+        if (shouldRenderNextFrame) {
+          requestAnimationFrame(this._loop);
+        }
+
+        for (var i = 0; i < deleteTheseWaves.length; ++i) {
+          var wave = deleteTheseWaves[i];
+          removeWaveFromScope(this, wave);
+        }
+
+        if (!this.waves.length && this._loop) {
+          // clear the background color
+          this.$.bg.style.backgroundColor = null;
+          this._loop = null;
+          this.fire('core-transitionend');
+        }
+      }
+
+    });
+
+  })();
+
+</script>
+</polymer-element>
+<polymer-element name="paper-button-base" tabindex="0" assetpath="bower_components/paper-button/">
+
+<script>
+
+  (function() {
+
+    var p = {
+
+      eventDelegates: {
+        down: 'downAction'
+      },
+
+      activeChanged: function() {
+        this.super();
+
+        if (this.$.ripple) {
+          if (this.active) {
+            // FIXME: remove when paper-ripple can have a default 'down' state.
+            if (!this.lastEvent) {
+              var rect = this.getBoundingClientRect();
+              this.lastEvent = {
+                x: rect.left + rect.width / 2,
+                y: rect.top + rect.height / 2
+              }
+            }
+            this.$.ripple.downAction(this.lastEvent);
+          } else {
+            this.$.ripple.upAction();
+          }
+        }
+
+        this.adjustZ();
+      },
+
+      disabledChanged: function() {
+        this._disabledChanged();
+        this.adjustZ();
+      },
+
+      recenteringTouchChanged: function() {
+        if (this.$.ripple) {
+          this.$.ripple.classList.toggle('recenteringTouch', this.recenteringTouch);
+        }
+      },
+
+      fillChanged: function() {
+        if (this.$.ripple) {
+          this.$.ripple.classList.toggle('fill', this.fill);
+        }
+      },
+
+      adjustZ: function() {
+        if (!this.$.shadow) {
+          return;
+        }
+        if (this.active) {
+          this.$.shadow.setZ(2);
+        } else if (this.disabled) {
+          this.$.shadow.setZ(0);
+        } else {
+          this.$.shadow.setZ(1);
+        }
+      },
+
+      downAction: function(e) {
+        this._downAction();
+
+        if (this.hasAttribute('noink')) {
+          return;
+        }
+
+        this.lastEvent = e;
+        if (!this.$.ripple) {
+          var ripple = document.createElement('paper-ripple');
+          ripple.setAttribute('id', 'ripple');
+          ripple.setAttribute('fit', '');
+          if (this.recenteringTouch) {
+            ripple.classList.add('recenteringTouch');
+          }
+          if (!this.fill) {
+            ripple.classList.add('circle');
+          }
+          this.$.ripple = ripple;
+          this.shadowRoot.insertBefore(ripple, this.shadowRoot.firstChild);
+          // No need to forward the event to the ripple because the ripple
+          // is triggered in activeChanged
+        }
+      }
+
+    };
+
+    Polymer.mixin2(p, Polymer.CoreFocusable);
+    Polymer('paper-button-base',p);
+
+  })();
+
+</script>
+</polymer-element>
+<polymer-element name="paper-button" extends="paper-button-base" attributes="raised recenteringTouch fill" role="button" assetpath="bower_components/paper-button/">
+
+  <template>
+
+    <style>
+
+      :host {
+        display: inline-block;
+        position: relative;
+        box-sizing: border-box;
+        min-width: 5.14em;
+        margin: 0 0.29em;
+        background: transparent;
+        text-align: center;
+        font: inherit;
+        text-transform: uppercase;
+        outline: none;
+        border-radius: 3px;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+        cursor: pointer;
+        z-index: 0;
+      }
+
+      :host([disabled]) {
+        background: #eaeaea;
+        color: #a8a8a8;
+        cursor: auto;
+        pointer-events: none;
+      }
+
+      ::content * {
+        text-transform: inherit;
+      }
+
+      #shadow {
+        border-radius: inherit;
+      }
+
+      #ripple {
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .button-content {
+        padding: 0.7em 0.57em
+      }
+
+      polyfill-next-selector { content: '.button-content > a'; }
+      ::content > a {
+        height: 100%;
+        padding: 0.7em 0.57em;
+        /* flex */
+        -ms-flex: 1 1 0.000000001px;
+        -webkit-flex: 1;
+        flex: 1;
+        -webkit-flex-basis: 0.000000001px;
+        flex-basis: 0.000000001px;
+      }
+
+    </style>
+
+    <template if="{{raised}}">
+      <paper-shadow id="shadow" fit="" animated=""></paper-shadow>
+    </template>
+
+    <!-- this div is needed to position the ripple behind text content -->
+    <div class="button-content" relative="" layout="" horizontal="" center-center="">
+      <content></content>
+      {{label}}
+    </div>
+
+  </template>
+
+  <script>
+    Polymer('paper-button',{
+
+      publish: {
+
+        /**
+         * If true, the button will be styled with a shadow.
+         *
+         * @attribute raised
+         * @type boolean
+         * @default false
+         */
+        raised: false,
+
+        /**
+         * By default the ripple emanates from where the user touched the button.
+         * Set this to true to always center the ripple.
+         *
+         * @attribute recenteringTouch
+         * @type boolean
+         * @default false
+         */
+        recenteringTouch: false,
+
+        /**
+         * By default the ripple expands to fill the button. Set this to true to
+         * constrain the ripple to a circle within the button.
+         *
+         * @attribute fill
+         * @type boolean
+         * @default true
+         */
+        fill: true
+
+      }
+
+    });
+  </script>
+</polymer-element>
+<polymer-element name="calendar-date" attributes="orientation relatedTarget selectedDate align opened" assetpath="">
+  <template>
+    <style>
+      * { font-family: 'Lato', sans-serif; }
+
+      :host {
+        width: 282px;
+        height: auto;
+        display: block;
+        margin-bottom: 80px;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      :host([orientation="horizontal"]) {
+        width: 512px;
+      }
+
+      div {
+        box-sizing: border-box;
+      }
+
+      p {
+        margin: 0;
+        font-weight: 400;
+      }
+
+      .paper-shadow {
+        border-radius: 4px;
+      }
+
+      #date_picker {
+        width: 100%;
+        border-radius: 4px;
+        overflow: hidden;
+        letter-spacing: .5px;
+        background: #fafafa;
+      }
+
+      .date_display {
+        height: 176px;
+        width: 100%;
+        background-color: #5cc3f6;
+        color: #fafafa;
+        text-align: center;
+      }
+
+      :host([orientation="horizontal"]) .date_display {
+        width: 50%;
+        float: left;
+        height: 248px;
+      }
+
+      .date_display .day_display {
+        width: 100%;
+        text-align: center;
+        font-size: 14px;
+        background-color: #38b6f4;
+        height: 32px;
+        min-height: 32px;
+      }
+
+      .date_display .month_display {
+        font-size: 24px;
+        line-height: 24px;
+        text-transform: uppercase;
+        padding-top: 16px;
+      }
+
+      :host([orientation="horizontal"]) .month_display {
+        padding-top: 24px;
+        padding-bottom: 15px;
+      }
+
+      .date_display .number_display {
+        font-size: 60px;
+        line-height: 60px;
+      }
+
+      :host([orientation="horizontal"]) .number_display {
+        font-size: 79px;
+        line-height: 79px;
+      }
+
+      .date_display .year_display {
+        opacity: 0.6;
+        font-size: 24px;
+        line-height: 24px;
+        padding-top: 8px;
+      }
+
+      :host([orientation="horizontal"]) .year_display {
+        padding-top: 26px;
+      }
+
+      .date_chooser {
+        width: 100%;
+        padding: 0 16px;
+      }
+
+      :host([orientation="horizontal"]) .date_chooser {
+        width: 50%;
+        float: left;
+      }
+
+      .date_chooser .month_chooser {
+        width: 100%;
+        text-align: center;
+        font-size: 14px;
+        color: #404040;
+        font-weight: 700;
+        padding-top: 14px;
+        padding-bottom: 10px;
+      }
+
+      :host([orientation="horizontal"]) .month_chooser {
+        padding-top: 6px;
+      }
+
+      .date_chooser .calender_label_container {
+        color: #727272;
+        text-transform: uppercase;
+        font-size: 12px;
+        text-align: center;
+        padding-bottom: 6px;
+      }
+
+      :host([orientation="horizontal"]) .calender_label_container {
+        padding-bottom: 8px;
+      }
+
+      .date_chooser .calender_label_container p {
+        width: 32px;
+        font-weight: 700;
+      }
+
+      .calender_row {
+        text-align: center;
+        font-size: 18px;
+        color: #404040;
+        height: 36px;
+      }
+
+      :host([orientation="horizontal"]) .calender_row {
+        height: 32px;
+      }
+
+      paper-button::shadow .button-content {
+        padding:0;
+        align-items: flex-start !important;
+        display: block;
+      }
+
+      .calender_row paper-button {
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        min-height: 32px;
+        text-align: center;
+        padding: 8px 0 0 0;
+        margin: 0;
+        font-weight: 400;
+        font-size: 12px;
+      }
+
+      .year_row {
+        text-align: center;
+      }
+
+      .year_row paper-button {
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        min-height: 48px;
+        text-align: center;
+        padding: 12px 0 0 0;
+        margin: 0;
+        font-weight: 400;
+        font-size: 16px;
+      }
+
+      .calender_row paper-button::shadow #ripple {
+        color: #5cc3f6;
+      }
+
+      .calender_row p {
+        width: 64px;
+      }
+
+      .actions {
+        width: 100%;
+        padding: 8px 16px 16px;
+      }
+
+      :host([orientation="horizontal"]) .actions {
+        padding: 0 16px 16px;
+      }
+
+      .save_button {
+        width: 88px;
+        color: #5cc3f6;
+        margin: 0;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0;
+      }
+
+      .cancel_button {
+        color: #727272;
+        margin-right: 8px;
+        width: 88px;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0;
+      }
+
+      .save_button:hover,
+      .calendar_button:hover,
+      .cancel_button:hover {
+        background-color: rgba(33,33,33,0.1);
+      }
+
+      .hide
+      {
+        display:none
+      }
+
+      ul {
+        margin:0;
+        padding-left:0;
+        overflow:hidden;
+        overflow-y:scroll;
+        height: 248px;
+      }
+    </style>
+    <div id="target">
+      <div id="date_picker" vertical="" layout="">
+        <div id="container">
+          <div class="date_display" vertical="" layout="" center="">
+            <p class="day_display" horizontal="" layout="" center="" center-justified="">{{weekDay}}</p>
+            <p class="month_display" on-click="{{activeMonthSelection}}">{{monthName}}</p>
+            <p class="number_display" on-click="{{activeDaySelection}}">{{nroDay}}</p>
+            <p class="year_display" on-click="{{activeYearSelection}}">{{yearMonth.year}}</p>
+          </div>
+          <div class="date_chooser">
+
+            <div id="calendar_years" class="hide">
+              <ul>
+
+                <template repeat="{{ year in availableYears}}">
+                  <li class="year_row" selected?="{{yearMonth.year == year}}">
+                    <paper-button class="calendar_button" style="display: inline-block" horizontal="" layout="" center-justified="" recenteringtouch="" on-click="{{selectYear}}">{{year}}</paper-button>
+                  </li>
+                </template>
+
+              </ul>
+            </div>
+            <div id="calendar_months" class="hide">
+              <ul>
+                <template repeat="{{ month in months}}">
+                  <li selected?="{{yearMonth.month == month.id}}">
+                    <paper-button class="calendar_button" horizontal="" layout="" center-justified="" recenteringtouch="" on-click="{{selectMonth}}" month="{{month.id}}">{{month.label}}</paper-button>
+                  </li>
+                </template>
+
+              </ul>
+            </div>
+            <div id="calendar_days">
+              <p class="month_chooser" horizontal="" layout="" center="" center-justified="">{{monthName}} {{yearMonth.year}}</p>
+
+              <div class="calender_label_container" horizontal="" layout="" center="" justified="">
+                <template repeat="{{dayOfWeek in daysOfWeek}}"><p>{{dayOfWeek}}</p></template>
+              </div>
+
+              <div class="calender" vertical="" layout="">
+                <template repeat="{{row, r in calendar}}">
+                  <div class="calender_row" horizontal="" layout="" center="" justified="">
+                    <template repeat="{{col, c in row}}">
+
+                      <template if="{{yearMonth.month == col.month}}">
+                        <paper-button horizontal="" layout="" center-justified="" recenteringtouch="" on-click="{{dateClicked}}" row="{{r}}" col="{{c}}">{{col.day}}</paper-button>
+                      </template>
+                      <template if="{{yearMonth.month != col.month}}">
+                        <p></p>
+                      </template>
+                    </template>
+                  </div>
+                </template>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="actions" horizontal="" layout="" end-justified="" center="">
+          <paper-button class="save_button" on-click="{{close}}">Done</paper-button>
+        </div>
+
+      </div>
+      <paper-shadow z="1"></paper-shadow>
+    </div>
+
+  </template>
+  <script>
+    Polymer("calendar-date", {
+      publish: {
+        // Defines the date-picker layout mode ('vertical' OR 'horizontal')
+        orientation: 'vertical',
+        // alignment left,middle,right
+        align: 'left'
+
+      },
+      closeCanceled: false,
+
+      openedChanged: function (oldVal, newVal) {
+        var picker = this;
+        if (!this.clickListener) {
+          this.clickListener = function (e) {
+            var bound = picker.target.getBoundingClientRect();
+            picker.async(function () { if (!picker.closeCanceled) picker.close(); else picker.closeCanceled = false });
+          };
+          this.targetClickListener = function (e) { picker.closeCanceled = true; }
+        }
+
+        if (newVal == "true") {
+          this.reposition();
+          this.style.display = "";
+          this.async(function () {
+            window.addEventListener('click', picker.clickListener, false);
+            picker.target.addEventListener('click', picker.targetClickListener, false);
+          }, 100);
+        } else {
+          window.removeEventListener('click', picker.clickListener, false);
+          window.removeEventListener('click', picker.targetClickListener, false);
+          console.log("no abrir");
+          picker.style.display = "none";
+        }
+      },
+      reposition: function () {
+        if (this.opened == "true") {
+          var picker = this;
+          var bound = this.relatedTarget.getBoundingClientRect();
+          picker.style.position = "fixed";
+          picker.style.top = (bound.bottom) + "px";
+
+          if (this.align == "right") picker.style.left = (bound.right) + "px";
+          else if (this.align == "left") picker.style.left = (bound.left) + "px";
+          else picker.style.left = ((bound.left + bound.right) / 2) + "px";
+        }
+      },
+      toggle: function () {
+        if (this.opened == "true") this.opened = "false";
+        else this.opened = "true";
+      },
+      open: function () {
+        this.opened = "true";
+      },
+
+      close: function() {
+        this.opened = "false";
+      },
+      format: function(moment) { return moment.tz(this.timezone).format("MMMM DD, YYYY"); },
+
+      ready: function() {
+
+        this.target = this.$.target;
+        var self = this;
+        window.addEventListener('scroll', function () { self.reposition(); });
+        window.addEventListener('resize', function () { self.reposition(); });
+        this.async(self.reposition);
+        if (!this.selectedDate) this.selectedDate = moment().format("MMMM DD, YYYY");
+        this.daysOfWeek = [0, 1, 2, 3, 4, 5, 6].map(function(n) {return moment().day(n).format("dd").charAt(0);});
+        this.months = [0, 1, 2, 3, 4, 5, 6,7,8,9,10,11].map(function(n) {return { label: moment().month(n).format("MMMM"), id: n}});
+
+        this.calendar = [];
+        this.availableYears =[];
+        var currentYear = new Date().getFullYear();
+        for (var d = (currentYear-120) ;d<=currentYear;d++ ) this.availableYears.push(d);
+
+      },
+
+      dateClicked: function(e) {
+        var element = e.originalTarget ? e.originalTarget : e.toElement;
+        var row = element.getAttribute("row");
+        var col = element.getAttribute("col");
+        this.selectedDate = this.calendar[row][col].identifier;
+        this.nroDay = moment(this.selectedDate).date();
+        this.weekDay = moment.weekdays( moment(this.selectedDate).day());
+      },
+      selectedDateChanged: function() {
+        if (this.start) this.startDate = this.selectedDate;
+        else if (this.end) this.endDate = this.selectedDate;
+        this.date = moment(this.selectedDate);
+      },
+      dateChanged: function(oldDate, newDate) {
+        this.rebuildYearMonth(newDate);
+      },
+      rebuildYearMonth: function(moment) {
+        this.yearMonth = {
+          year: moment.year(),
+          month: moment.month()
+        };
+      },
+      yearMonthChanged: function(oldYearMonth, newYearMonth) {
+        if (!oldYearMonth || oldYearMonth.year != newYearMonth.year || oldYearMonth.month != newYearMonth.month) {
+          this.rebuildCalendar();
+        }
+      },
+      rebuildCalendar: function() {
+        this.calendar = [];
+        this.firstOfMonth = moment([this.yearMonth.year, this.yearMonth.month, 1]);
+        this.monthName = this.firstOfMonth.format("MMM");
+
+        var currentDate = moment(this.selectedDate);
+        this.nroDay = currentDate.date();
+
+        this.weekDay = moment.weekdays(currentDate.day());
+
+        this.firstDayOfMonthOffset = this.firstOfMonth.day();
+        var columns = [];
+
+        for (var i = 0; i < 6 * 7; i++) {
+          var date =this.firstOfMonth.clone().add(i - this.firstDayOfMonthOffset, 'days');
+          if (i % 7 == 0) { columns = []; }
+          columns.push({
+            date: date,
+            year: date.year(),
+            month: date.month(),
+            day: date.date(),
+            identifier: date.format("MMMM DD, YYYY")
+          });
+
+          if ((i + 1) % 7 == 0) this.calendar.push(columns);
+        }
+      },
+      activeDaySelection : function()
+      {
+        this.$.calendar_days.classList.remove('hide');
+        this.$.calendar_months.classList.add('hide');
+        this.$.calendar_years.classList.add('hide');
+      },
+      activeMonthSelection : function()
+      {
+        this.$.calendar_days.classList.add('hide');
+        this.$.calendar_months.classList.remove('hide');
+        this.$.calendar_years.classList.add('hide');
+      },
+      activeYearSelection : function()
+      {
+        this.$.calendar_days.classList.add('hide');
+        this.$.calendar_months.classList.add('hide');
+        this.$.calendar_years.classList.remove('hide');
+      },
+      selectYear: function(e)
+      {
+        var element = e.originalTarget ? e.originalTarget : e.toElement;
+        var value = element.textContent;
+
+        this.selectedDate=moment(this.selectedDate).set('y', value).format("MMMM DD, YYYY");
+        this.rebuildCalendar();
+      },
+      selectMonth: function(e)
+      {
+        var element = e.originalTarget ? e.originalTarget : e.toElement;
+        var selectedMonth = element.getAttribute('month');
+        this.selectedDate=moment(this.selectedDate).set('M', parseInt(selectedMonth)).format("MMMM DD, YYYY");
+        this.rebuildCalendar();
+      }
+
+    })
+  </script>
+</polymer-element>
+<polymer-element name="calendar-date-picker" attributes="selectedDate opened orientation" assetpath="">
+  <template>
+
+    <calendar-date id="datePicker" orientation="{{orientation}}" selecteddate="{{selectedDate}}" relatedtarget="{{$.trigger}}" opened="{{opened}}"></calendar-date>
+
+    <paper-input id="trigger" value="{{selectedDate}}" on-click="{{toggle}}" readonly=""></paper-input>
+  </template>
+  <script>
+    Polymer('calendar-date-picker', {
+      toggle: function() {
+        this.$.datePicker.toggle();
+      },
+      open: function() {
+        this.$.datePicker.open();
+      }
+    });
+
+  </script>
+</polymer-element>
+</div>
+<div>
+    <p>Birthday</p>
+    <calendar-date-picker selecteddate="May 12, 1981" opened="false" orientation="vertical"></calendar-date-picker>
+</div>
+
+
+</body></html>
